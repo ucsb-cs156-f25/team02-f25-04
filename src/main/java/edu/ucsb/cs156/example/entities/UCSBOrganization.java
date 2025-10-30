@@ -14,9 +14,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity(name = "UCSBORGANIZATION")
 public class UCSBOrganization {
-  @Id
-  @Column(name = "ORGCODE")
-  private String orgCode;
+  @Id private String orgCode;
 
   private String orgTranslationShort;
   private String orgTranslation;
