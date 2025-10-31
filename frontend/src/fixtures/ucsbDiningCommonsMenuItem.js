@@ -1,11 +1,11 @@
 const ucsbDiningCommonsMenuItem = {
-  oneUCSBDiningCommonsMenuItem: {
+  oneItem: {
     id: 1,
     diningCommonsCode: "DLG",
     name: "Chicken Tenders",
     station: "Grill",
   },
-  threeUCSBDiningCommonsMenuItem: [
+  threeItems: [
     {
       id: 1,
       diningCommonsCode: "DLG",
