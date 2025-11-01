@@ -23,7 +23,9 @@ describe("HelpRequestUtils", () => {
       onDeleteSuccess("Help Request deleted successfully.");
 
       // assert
-      expect(mockToast).toHaveBeenCalledWith("Help Request deleted successfully.");
+      expect(mockToast).toHaveBeenCalledWith(
+        "Help Request deleted successfully.",
+      );
       expect(console.log).toHaveBeenCalled();
       const message = console.log.mock.calls[0][0];
       expect(message).toMatch("Help Request deleted successfully.");
