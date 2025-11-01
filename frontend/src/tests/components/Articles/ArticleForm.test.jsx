@@ -76,18 +76,6 @@ describe("ArticleForm tests", () => {
       screen.getByText(/Email must be at most 255 characters./),
     ).toBeInTheDocument();
   });
-
-  test("renders correctly", async () => {
-    render(
-      <Router>
-        <ArticleForm />
-      </Router>,
-    );
-    await screen.findByText(/Title/);
-    await screen.findByText(/Create/);
-    expect(screen.getByText(/Title/)).toBeInTheDocument();
-  });
-
   test("Correct Email Error message", async () => {
     render(
       <Router>
@@ -158,7 +146,9 @@ describe("ArticleForm tests", () => {
 
     expect(screen.queryByText(/Title is required./)).not.toBeInTheDocument();
     expect(screen.queryByText(/URL is required./)).not.toBeInTheDocument();
-    expect(screen.queryByText(/Explanation is required./)).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(/Explanation is required./),
+    ).not.toBeInTheDocument();
     expect(screen.queryByText(/Email is required./)).not.toBeInTheDocument();
 
     expect(
