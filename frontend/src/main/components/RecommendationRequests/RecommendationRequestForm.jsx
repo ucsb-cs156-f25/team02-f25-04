@@ -16,7 +16,8 @@ function RecommendationRequestForm({
     defaultValues: initialContents
       ? {
           ...initialContents,
-          dateRequested: initialContents.dateRequested.substring(0, 16),
+          dateRequested: initialContents.dateRequested?.substring(0, 16),
+          dateNeeded: initialContents.dateNeeded?.substring(0, 16),
         }
       : {},
   });
@@ -32,6 +33,7 @@ function RecommendationRequestForm({
   // Stryker disable Regex
   const isodate_regex =
     /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d)/i;
+  const email_regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   // Stryker restore Regex
 
   return (
@@ -63,6 +65,10 @@ function RecommendationRequestForm({
               value: 255,
               message: "Max length 255 characters",
             },
+            pattern: {
+              value: email_regex,
+              message: 'Email should contain one "@" and one ".".',
+            },
           })}
         />
         <Form.Control.Feedback type="invalid">
@@ -82,6 +88,10 @@ function RecommendationRequestForm({
             maxLength: {
               value: 255,
               message: "Max length 255 characters",
+            },
+            pattern: {
+              value: email_regex,
+              message: 'Email should contain one "@" and one ".".',
             },
           })}
         />
@@ -107,7 +117,9 @@ function RecommendationRequestForm({
       </Form.Group>
 
       <Form.Group className="mb-3">
-        <Form.Label htmlFor="dateRequested">Date Requested (in UTC)</Form.Label>
+        <Form.Label htmlFor="dateRequested">
+          Date Requested (iso format)
+        </Form.Label>
         <Form.Control
           data-testid={testIdPrefix + "-dateRequested"}
           id="dateRequested"
@@ -121,6 +133,34 @@ function RecommendationRequestForm({
         <Form.Control.Feedback type="invalid">
           {errors.dateRequested && "Date Requested is required. "}
         </Form.Control.Feedback>
+      </Form.Group>
+
+      <Form.Group className="mb-3">
+        <Form.Label htmlFor="dateNeeded">Date Needed (iso format)</Form.Label>
+        <Form.Control
+          data-testid={testIdPrefix + "-dateNeeded"}
+          id="dateNeeded"
+          type="datetime-local"
+          isInvalid={Boolean(errors.dateNeeded)}
+          {...register("dateNeeded", {
+            required: true,
+            pattern: isodate_regex,
+          })}
+        />
+        <Form.Control.Feedback type="invalid">
+          {errors.dateNeeded && "Date Needed is required. "}
+        </Form.Control.Feedback>
+      </Form.Group>
+
+      <Form.Group className="mb-3">
+        <Form.Label htmlFor="done">Done</Form.Label>
+        <Form.Check
+          data-testid={testIdPrefix + "-done"}
+          id="done"
+          type="switch"
+          isInvalid={Boolean(errors.done)}
+          {...register("done")}
+        />
       </Form.Group>
 
       <Button type="submit" data-testid={testIdPrefix + "-submit"}>
