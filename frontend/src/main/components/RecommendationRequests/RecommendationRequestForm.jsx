@@ -103,7 +103,6 @@ function RecommendationRequestForm({
       <Form.Group className="mb-3">
         <Form.Label htmlFor="explanation">Explanation</Form.Label>
         <Form.Control
-          data-testid={testIdPrefix + "-explanation"}
           id="explanation"
           type="text"
           isInvalid={Boolean(errors.explanation)}
@@ -121,7 +120,6 @@ function RecommendationRequestForm({
           Date Requested (iso format)
         </Form.Label>
         <Form.Control
-          data-testid={testIdPrefix + "-dateRequested"}
           id="dateRequested"
           type="datetime-local"
           isInvalid={Boolean(errors.dateRequested)}
@@ -138,7 +136,6 @@ function RecommendationRequestForm({
       <Form.Group className="mb-3">
         <Form.Label htmlFor="dateNeeded">Date Needed (iso format)</Form.Label>
         <Form.Control
-          data-testid={testIdPrefix + "-dateNeeded"}
           id="dateNeeded"
           type="datetime-local"
           isInvalid={Boolean(errors.dateNeeded)}
@@ -155,7 +152,6 @@ function RecommendationRequestForm({
       <Form.Group className="mb-3">
         <Form.Label htmlFor="done">Done</Form.Label>
         <Form.Check
-          data-testid={testIdPrefix + "-done"}
           id="done"
           type="switch"
           isInvalid={Boolean(errors.done)}
@@ -163,9 +159,7 @@ function RecommendationRequestForm({
         />
       </Form.Group>
 
-      <Button type="submit" data-testid={testIdPrefix + "-submit"}>
-        {buttonLabel}
-      </Button>
+      <Button type="submit">{buttonLabel}</Button>
       <Button
         variant="Secondary"
         onClick={() => navigate(-1)}

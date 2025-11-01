@@ -34,7 +34,7 @@ describe("RecommendationRequestForm tests", () => {
         <Router>
           <RecommendationRequestForm />
         </Router>
-      </QueryClientProvider>,
+      </QueryClientProvider>
     );
 
     expect(await screen.findByText(/Create/)).toBeInTheDocument();
@@ -55,7 +55,7 @@ describe("RecommendationRequestForm tests", () => {
             }
           />
         </Router>
-      </QueryClientProvider>,
+      </QueryClientProvider>
     );
 
     expect(await screen.findByText(/Create/)).toBeInTheDocument();
@@ -75,7 +75,7 @@ describe("RecommendationRequestForm tests", () => {
         <Router>
           <RecommendationRequestForm />
         </Router>
-      </QueryClientProvider>,
+      </QueryClientProvider>
     );
     expect(await screen.findByTestId(`${testId}-cancel`)).toBeInTheDocument();
     const cancelButton = screen.getByTestId(`${testId}-cancel`);
@@ -91,7 +91,7 @@ describe("RecommendationRequestForm tests", () => {
         <Router>
           <RecommendationRequestForm />
         </Router>
-      </QueryClientProvider>,
+      </QueryClientProvider>
     );
 
     expect(await screen.findByText(/Create/)).toBeInTheDocument();
@@ -106,6 +106,98 @@ describe("RecommendationRequestForm tests", () => {
 
     const requesterEmailInput = screen.getByTestId(`${testId}-requesterEmail`);
     fireEvent.change(requesterEmailInput, {
+      target: { value: "a".repeat(256) },
+    });
+    fireEvent.click(submitButton);
+
+    await waitFor(() => {
+      expect(screen.getByText(/Max length 255 characters/)).toBeInTheDocument();
+    });
+  });
+
+  test("validates email pattern for requesterEmail", async () => {
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Router>
+          <RecommendationRequestForm />
+        </Router>
+      </QueryClientProvider>
+    );
+
+    const submitButton = screen.getByText(/Create/);
+    const requesterEmailInput = screen.getByTestId(`${testId}-requesterEmail`);
+
+    fireEvent.change(requesterEmailInput, {
+      target: { value: "invalidemail" },
+    });
+    fireEvent.click(submitButton);
+
+    await waitFor(() => {
+      expect(
+        screen.getByText(/Email should contain one "@" and one "."/)
+      ).toBeInTheDocument();
+    });
+  });
+
+  test("validates email pattern for professorEmail", async () => {
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Router>
+          <RecommendationRequestForm />
+        </Router>
+      </QueryClientProvider>
+    );
+
+    const submitButton = screen.getByText(/Create/);
+    const professorEmailInput = screen.getByTestId(`${testId}-professorEmail`);
+
+    fireEvent.change(professorEmailInput, {
+      target: { value: "invalidemail" },
+    });
+    fireEvent.click(submitButton);
+
+    await waitFor(() => {
+      expect(
+        screen.getByText(/Email should contain one "@" and one "."/)
+      ).toBeInTheDocument();
+    });
+  });
+
+  test("validates max length for requesterEmail", async () => {
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Router>
+          <RecommendationRequestForm />
+        </Router>
+      </QueryClientProvider>
+    );
+
+    const submitButton = screen.getByText(/Create/);
+    const requesterEmailInput = screen.getByTestId(`${testId}-requesterEmail`);
+
+    fireEvent.change(requesterEmailInput, {
+      target: { value: "a".repeat(256) },
+    });
+    fireEvent.click(submitButton);
+
+    await waitFor(() => {
+      expect(screen.getByText(/Max length 255 characters/)).toBeInTheDocument();
+    });
+  });
+
+  test("validates max length for professorEmail", async () => {
+    render(
+      <QueryClientProvider client={queryClient}>
+        <Router>
+          <RecommendationRequestForm />
+        </Router>
+      </QueryClientProvider>
+    );
+
+    const submitButton = screen.getByText(/Create/);
+    const professorEmailInput = screen.getByTestId(`${testId}-professorEmail`);
+
+    fireEvent.change(professorEmailInput, {
       target: { value: "a".repeat(256) },
     });
     fireEvent.click(submitButton);
