@@ -56,6 +56,11 @@ describe("UCSBOrganizationForm tests", () => {
 
     expect(await screen.findByTestId(`${testId}-orgCode`)).toBeInTheDocument();
     expect(screen.getByText(`OrgCode`)).toBeInTheDocument();
+
+    expect(screen.getByLabelText("OrgCode")).toHaveValue(ucsbOrganizationFixtures.oneOrganization.orgCode);
+    expect(screen.getByLabelText("OrgTranslationShort")).toHaveValue(ucsbOrganizationFixtures.oneOrganization.orgTranslationShort);
+    expect(screen.getByLabelText("OrgTranslation")).toHaveValue(ucsbOrganizationFixtures.oneOrganization.orgTranslation);
+    expect(screen.getByLabelText("Inactive")).not.toBeChecked();
   });
 
   test("that navigate(-1) is called when Cancel is clicked", async () => {

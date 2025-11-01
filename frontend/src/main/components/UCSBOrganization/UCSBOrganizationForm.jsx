@@ -60,7 +60,6 @@ function UCSBOrganizationForm({
       <Form.Group className="mb-3">
         <Form.Label htmlFor="orgTranslation">OrgTranslation</Form.Label>
         <Form.Control
-          data-testid={testIdPrefix + "-orgTranslation"}
           id="orgTranslation"
           type="text"
           isInvalid={Boolean(errors.orgTranslation)}
@@ -76,9 +75,8 @@ function UCSBOrganizationForm({
       <Form.Group className="mb-3">
         <Form.Label htmlFor="inactive">Inactive</Form.Label>
         <Form.Control
-          data-testid={testIdPrefix + "-inactive"}
           id="inactive"
-          type="text"
+          type="switch"
           isInvalid={Boolean(errors.inactive)}
           {...register("inactive", {
             required: "Inactive is required.",
@@ -89,7 +87,7 @@ function UCSBOrganizationForm({
         </Form.Control.Feedback>
       </Form.Group>
 
-      <Button type="submit" data-testid={testIdPrefix + "-submit"}>
+      <Button type="submit">
         {buttonLabel}
       </Button>
       <Button
