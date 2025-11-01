@@ -23,7 +23,9 @@ function ArticleForm({
   // Stryker disable Regex
   const isodate_regex =
     /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d)/i;
-  // Stryker restore Regex
+  const email_regex =
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    // Stryker restore Regex
 
   return (
     <Form onSubmit={handleSubmit(submitAction)}>
@@ -43,7 +45,7 @@ function ArticleForm({
             </Form.Group>
           </Col>
         )}
-        
+
         <Col>
           <Form.Group className="mb-3">
             <Form.Label htmlFor="title">Title</Form.Label>
@@ -54,6 +56,10 @@ function ArticleForm({
               isInvalid={Boolean(errors.title)}
               {...register("title", {
                 required: "Title is required.",
+                maxLength: {
+                  value: 255,
+                  message: "Title must be at most 255 characters.",
+                },
               })}
             />
             <Form.Control.Feedback type="invalid">
@@ -72,6 +78,10 @@ function ArticleForm({
               isInvalid={Boolean(errors.url)}
               {...register("url", {
                 required: "URL is required.",
+                maxLength: {
+                  value: 255,
+                  message: "URL must be at most 255 characters.",
+                },
               })}
             />
             <Form.Control.Feedback type="invalid">
@@ -90,6 +100,10 @@ function ArticleForm({
               isInvalid={Boolean(errors.explanation)}
               {...register("explanation", {
                 required: "Explanation is required.",
+                maxLength: {
+                  value: 255,
+                  message: "Explanation must be at most 255 characters.",
+                },
               })}
             />
             <Form.Control.Feedback type="invalid">
@@ -108,6 +122,14 @@ function ArticleForm({
               isInvalid={Boolean(errors.email)}
               {...register("email", {
                 required: "Email is required.",
+                maxLength: {
+                  value: 255,
+                  message: "Email must be at most 255 characters.",
+                },
+                pattern: {
+                  value: email_regex,
+                  message: "Email should contain one \"@\" and one \".\".",
+                },
               })}
             />
             <Form.Control.Feedback type="invalid">
