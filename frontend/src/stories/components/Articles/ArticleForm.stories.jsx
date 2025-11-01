@@ -1,6 +1,6 @@
 import React from "react";
 import ArticleForm from "main/components/Articles/ArticleForm";
-import { articlesFixtures } from "fixtures/articlesFixtures";
+import { articlesFixtures } from "fixtures/articleFixtures";
 
 export default {
   title: "components/Articles/ArticleForm",

@@ -1,6 +1,6 @@
 import { render, waitFor, fireEvent, screen } from "@testing-library/react";
 import ArticleForm from "main/components/Articles/ArticleForm";
-import { articlesFixtures } from "fixtures/articlesFixtures";
+import { articlesFixtures } from "fixtures/articleFixtures";
 import { BrowserRouter as Router } from "react-router";
 import { expect } from "vitest";
 
@@ -97,7 +97,7 @@ describe("ArticleForm tests", () => {
     await screen.findByTestId("ArticleForm-email");
     const emailField = screen.getByTestId("ArticleForm-email");
     const submitButton = screen.getByTestId("ArticleForm-submit");
-    
+
     fireEvent.change(emailField, { target: { value: "bad-email" } });
     fireEvent.click(submitButton);
 
