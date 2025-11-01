@@ -23,13 +23,13 @@ function UCSBOrganizationForm({
     <Form onSubmit={handleSubmit(submitAction)}>
       {initialContents && (
         <Form.Group className="mb-3">
-          <Form.Label htmlFor="id">Id</Form.Label>
+          <Form.Label htmlFor="orgCode">OrgCode</Form.Label>
           <Form.Control
-            data-testid={testIdPrefix + "-id"}
-            id="id"
+            data-testid={testIdPrefix + "-orgCode"}
+            id="orgCode"
             type="text"
-            {...register("id")}
-            value={initialContents.id}
+            {...register("orgCode")}
+            value={initialContents.orgCode}
             disabled
           />
         </Form.Group>
