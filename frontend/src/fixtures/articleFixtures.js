@@ -36,4 +36,4 @@ const articleFixtures = {
   ],
 };
 
-export { articlesFixtures };
+export { articleFixtures };

@@ -1,6 +1,6 @@
 import { render, waitFor, fireEvent, screen } from "@testing-library/react";
 import ArticleForm from "main/components/Articles/ArticleForm";
-import { articlesFixtures } from "fixtures/articleFixtures";
+import { articleFixtures } from "fixtures/articleFixtures";
 import { BrowserRouter as Router } from "react-router";
 import { expect } from "vitest";
 
@@ -28,7 +28,7 @@ describe("ArticleForm tests", () => {
   test("renders correctly when passing in an Article", async () => {
     render(
       <Router>
-        <ArticleForm initialContents={articlesFixtures.oneArticle} />
+        <ArticleForm initialContents={articleFixtures.oneArticle} />
       </Router>,
     );
     await screen.findByTestId(/ArticleForm-id/);
@@ -91,7 +91,7 @@ describe("ArticleForm tests", () => {
   test("Correct Email Error message", async () => {
     render(
       <Router>
-        <ArticleForm initialContents={articlesFixtures.oneArticle} />
+        <ArticleForm initialContents={articleFixtures.oneArticle} />
       </Router>,
     );
     await screen.findByTestId("ArticleForm-email");
