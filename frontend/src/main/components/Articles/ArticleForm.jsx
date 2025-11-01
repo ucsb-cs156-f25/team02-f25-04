@@ -130,7 +130,7 @@ function ArticleForm({
               })}
             />
             <Form.Control.Feedback type="invalid">
-              {errors.dateAdded && "dateAdded is required. "}
+              {errors.dateAdded && "Date Added is required."}
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
