@@ -32,7 +32,7 @@ const helpRequestFixtures = {
       requesterEmail: "chrisgaucho@ucsb.edu",
       teamId: "16",
       tableOrBreakoutRoom: "16",
-      requestTime: "2025-11-02T05:00",
+      requestTime: "2025-11-02T05:00:00",
       explanation: "Tests pass locally but fail on Gradescope.",
       solved: true,
     },

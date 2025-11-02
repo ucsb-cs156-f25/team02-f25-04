@@ -150,8 +150,8 @@ function HelpRequestForm({
               {...register("explanation", {
                 required: "Explanation is required.",
                 maxLength: {
-                  value: 250,
-                  message: "Explanation must be at most 250 characters.",
+                  value: 255,
+                  message: "Explanation must be at most 255 characters.",
                 },
               })}
             />
