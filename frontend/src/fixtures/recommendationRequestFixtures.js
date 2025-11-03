@@ -1,14 +1,13 @@
 const recommendationRequestFixtures = {
-  oneRecommendationRequest: 
-    {
-      id: 1,
-      requesterEmail: "test1@ucsb.edu",
-      professorEmail: "prof1@ucsb.edu",
-      explanation: "i want more mexican food",
-      dateRequested: "2022-01-03T00:10:01",
-      dateNeeded: "2022-01-03T00:10:01",
-      done: true,
-    },
+  oneRecommendationRequest: {
+    id: 1,
+    requesterEmail: "test1@ucsb.edu",
+    professorEmail: "prof1@ucsb.edu",
+    explanation: "i want more mexican food",
+    dateRequested: "2022-01-03T00:10:01",
+    dateNeeded: "2022-01-03T00:10:01",
+    done: true,
+  },
 
   threeRecommendationRequests: [
     {
