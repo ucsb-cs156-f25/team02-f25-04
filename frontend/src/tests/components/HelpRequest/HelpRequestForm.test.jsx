@@ -84,7 +84,7 @@ describe("HelpRequestForm tests", () => {
       screen.getByText(/Table Or Breakout Room must be a number./),
     ).toBeInTheDocument();
     expect(
-      screen.getByText(/Explanation must be at most 250 characters./),
+      screen.getByText(/Explanation must be at most 255 characters./),
     ).toBeInTheDocument();
   });
 
@@ -160,7 +160,7 @@ describe("HelpRequestForm tests", () => {
       screen.queryByText(/Table Or Breakout Room must be a number./),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByText(/Explanation must be at most 250 characters./),
+      screen.queryByText(/Explanation must be at most 255 characters./),
     ).not.toBeInTheDocument();
 
     expect(
