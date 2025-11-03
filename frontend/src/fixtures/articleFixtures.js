@@ -1,4 +1,4 @@
-const articlesFixtures = {
+const articleFixtures = {
   oneArticle: {
     id: 1,
     title: "Test Articles",
@@ -27,7 +27,7 @@ const articlesFixtures = {
     },
     {
       id: 4,
-      title: "Test Articles",
+      title: "Test Articles 4",
       url: "https://www.google.com",
       explanation: "1",
       email: "me@ucsb.edu",
@@ -36,4 +36,8 @@ const articlesFixtures = {
   ],
 };
 
+<<<<<<< HEAD:frontend/src/fixtures/articlesFixtures.js
 export { articlesFixtures };
+=======
+export { articleFixtures };
+>>>>>>> main:frontend/src/fixtures/articleFixtures.js

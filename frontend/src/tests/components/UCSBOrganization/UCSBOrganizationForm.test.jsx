@@ -99,10 +99,15 @@ describe("UCSBOrganizationForm tests", () => {
     expect(await screen.findByText(/Create/)).toBeInTheDocument();
     const submitButton = screen.getByText(/Create/);
     fireEvent.click(submitButton);
+<<<<<<< HEAD
     await screen.findByText(/OrgCode is required./);
     expect(
       screen.getByText(/OrgTranslationShort is required/),
     ).toBeInTheDocument();
+=======
+
+    await screen.findByText(/OrgTranslationShort is required/);
+>>>>>>> main
     expect(screen.getByText(/OrgTranslation is required/)).toBeInTheDocument();
     expect(screen.getByText(/Inactive is required/)).toBeInTheDocument();
 

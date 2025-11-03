@@ -21,6 +21,7 @@ function UCSBOrganizationForm({
 
   return (
     <Form onSubmit={handleSubmit(submitAction)}>
+<<<<<<< HEAD
       <Form.Group className="mb-3">
         <Form.Label htmlFor="orgCode">OrgCode</Form.Label>
         <Form.Control
@@ -36,6 +37,21 @@ function UCSBOrganizationForm({
           {errors.orgCode?.message}
         </Form.Control.Feedback>
       </Form.Group>
+=======
+      {initialContents && (
+        <Form.Group className="mb-3">
+          <Form.Label htmlFor="orgCode">OrgCode</Form.Label>
+          <Form.Control
+            data-testid={testIdPrefix + "-orgCode"}
+            id="orgCode"
+            type="text"
+            {...register("orgCode")}
+            value={initialContents.orgCode}
+            disabled
+          />
+        </Form.Group>
+      )}
+>>>>>>> main
 
       <Form.Group className="mb-3">
         <Form.Label htmlFor="orgTranslationShort">
