@@ -42,7 +42,9 @@ describe("UCSBOrganizationForm tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <Router>
-          <UCSBOrganizationForm initialContents={ucsbOrganizationFixtures.oneOrganization} />
+          <UCSBOrganizationForm
+            initialContents={ucsbOrganizationFixtures.oneOrganization}
+          />
         </Router>
       </QueryClientProvider>,
     );
@@ -57,9 +59,15 @@ describe("UCSBOrganizationForm tests", () => {
     expect(await screen.findByTestId(`${testId}-orgCode`)).toBeInTheDocument();
     expect(screen.getByText(`OrgCode`)).toBeInTheDocument();
 
-    expect(screen.getByLabelText("OrgCode")).toHaveValue(ucsbOrganizationFixtures.oneOrganization.orgCode);
-    expect(screen.getByLabelText("OrgTranslationShort")).toHaveValue(ucsbOrganizationFixtures.oneOrganization.orgTranslationShort);
-    expect(screen.getByLabelText("OrgTranslation")).toHaveValue(ucsbOrganizationFixtures.oneOrganization.orgTranslation);
+    expect(screen.getByLabelText("OrgCode")).toHaveValue(
+      ucsbOrganizationFixtures.oneOrganization.orgCode,
+    );
+    expect(screen.getByLabelText("OrgTranslationShort")).toHaveValue(
+      ucsbOrganizationFixtures.oneOrganization.orgTranslationShort,
+    );
+    expect(screen.getByLabelText("OrgTranslation")).toHaveValue(
+      ucsbOrganizationFixtures.oneOrganization.orgTranslation,
+    );
     expect(screen.getByLabelText("Inactive")).not.toBeChecked();
   });
 
@@ -96,8 +104,12 @@ describe("UCSBOrganizationForm tests", () => {
     expect(screen.getByText(/OrgTranslation is required/)).toBeInTheDocument();
     expect(screen.getByText(/Inactive is required/)).toBeInTheDocument();
 
-    const orgTranslationShortInput = screen.getByTestId(`${testId}-orgTranslationShort`);
-    fireEvent.change(orgTranslationShortInput, { target: { value: "a".repeat(256) } });
+    const orgTranslationShortInput = screen.getByTestId(
+      `${testId}-orgTranslationShort`,
+    );
+    fireEvent.change(orgTranslationShortInput, {
+      target: { value: "a".repeat(256) },
+    });
     fireEvent.click(submitButton);
 
     await waitFor(() => {
