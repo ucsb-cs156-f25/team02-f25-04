@@ -34,7 +34,7 @@ describe("RecommendationRequestForm tests", () => {
         <Router>
           <RecommendationRequestForm />
         </Router>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     expect(await screen.findByText(/Create/)).toBeInTheDocument();
@@ -55,7 +55,7 @@ describe("RecommendationRequestForm tests", () => {
             }
           />
         </Router>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     expect(await screen.findByText(/Create/)).toBeInTheDocument();
@@ -75,7 +75,7 @@ describe("RecommendationRequestForm tests", () => {
         <Router>
           <RecommendationRequestForm />
         </Router>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
     expect(await screen.findByTestId(`${testId}-cancel`)).toBeInTheDocument();
     const cancelButton = screen.getByTestId(`${testId}-cancel`);
@@ -91,7 +91,7 @@ describe("RecommendationRequestForm tests", () => {
         <Router>
           <RecommendationRequestForm />
         </Router>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     expect(await screen.findByText(/Create/)).toBeInTheDocument();
@@ -121,7 +121,7 @@ describe("RecommendationRequestForm tests", () => {
         <Router>
           <RecommendationRequestForm />
         </Router>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     const submitButton = screen.getByText(/Create/);
@@ -134,7 +134,7 @@ describe("RecommendationRequestForm tests", () => {
 
     await waitFor(() => {
       expect(
-        screen.getByText(/Email should contain one "@" and one "."/)
+        screen.getByText(/Email should contain one "@" and one "."/),
       ).toBeInTheDocument();
     });
   });
@@ -145,7 +145,7 @@ describe("RecommendationRequestForm tests", () => {
         <Router>
           <RecommendationRequestForm />
         </Router>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     const submitButton = screen.getByText(/Create/);
@@ -158,7 +158,7 @@ describe("RecommendationRequestForm tests", () => {
 
     await waitFor(() => {
       expect(
-        screen.getByText(/Email should contain one "@" and one "."/)
+        screen.getByText(/Email should contain one "@" and one "."/),
       ).toBeInTheDocument();
     });
   });
@@ -169,7 +169,7 @@ describe("RecommendationRequestForm tests", () => {
         <Router>
           <RecommendationRequestForm />
         </Router>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     const submitButton = screen.getByText(/Create/);
@@ -191,7 +191,7 @@ describe("RecommendationRequestForm tests", () => {
         <Router>
           <RecommendationRequestForm />
         </Router>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     const submitButton = screen.getByText(/Create/);
