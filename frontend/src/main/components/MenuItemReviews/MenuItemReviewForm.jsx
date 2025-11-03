@@ -52,7 +52,7 @@ function MenuItemReviewForm({
               isInvalid={Boolean(errors.item_id)}
               {...register("item_id", {
                 required: "Item Id is required.",
-                maxLength: {
+                pattern: {
                   value: id_regex,
                   message: "Item Id must correspond to a valid menu item.",
                 },
@@ -70,13 +70,12 @@ function MenuItemReviewForm({
               data-testid={testIdPrefix + "-reviewer_email"}
               id="reviewer_email"
               type="text"
-              placeholder="e.g. cgaucho@ucsb.edu"
               isInvalid={Boolean(errors.reviewer_email)}
               {...register("reviewer_email", {
                 required: "Reviewer Email is required.",
-                maxLength: {
+                pattern: {
                   value: email_regex,
-                  message: "Reviewer email must be a valid email address.",
+                  message: "Reviewer Email must be a valid email address.",
                 },
               })}
             />
@@ -92,13 +91,16 @@ function MenuItemReviewForm({
               data-testid={testIdPrefix + "-stars"}
               id="stars"
               type="stars"
-              placeholder="e.g. 1"
               isInvalid={Boolean(errors.stars)}
               {...register("stars", {
-                required: "Stars are required.",
-                maxLength: {
+                required: "Stars is required.",
+                min: {
                   value: 1,
-                  message: "Must be a valid number from 1-5 stars.",
+                  message: "Stars must be between 1 and 5.",
+                },
+                max: {
+                  value: 5,
+                  message: "Stars must be between 1 and 5.",
                 },
               })}
             />
@@ -119,7 +121,7 @@ function MenuItemReviewForm({
                 required: "Comments is required.",
                 maxLength: {
                   value: 255,
-                  message: "Must be within 255 character.",
+                  message: "Comments must be at most 255 characters.",
                 },
               })}
             />

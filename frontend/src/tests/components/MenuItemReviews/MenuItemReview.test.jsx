@@ -33,9 +33,9 @@ describe("MenuItemReviewForm tests", () => {
         <MenuItemReviewForm initialContents={menuItemReviewFixtures.oneMenuItemReview} />
       </Router>,
     );
-    await screen.findByTestId(/MenuItemReviewForm-id/);
-    expect(screen.getByText(/Id/)).toBeInTheDocument();
-    expect(screen.getByTestId(/MenuItemReviewForm-id/)).toHaveValue("1");
+    await screen.findByTestId("MenuItemReviewForm-id");
+    expect(screen.getByText("Id")).toBeInTheDocument();
+    expect(screen.getByTestId("MenuItemReviewForm-id")).toHaveValue("1");
   });
 
   test("Correct Error messages on bad input", async () => {
@@ -52,7 +52,7 @@ describe("MenuItemReviewForm tests", () => {
     const dateReviewedField = screen.getByTestId("MenuItemReviewForm-dateReviewed");
     const submitButton = screen.getByTestId("MenuItemReviewForm-submit");
 
-    fireEvent.change(itemIdField, { target: { value: "a" } });
+    fireEvent.change(itemIdField, { target: { value: "ffff" } });
     fireEvent.change(reviewerEmailField, { target: { value: "a" } });
     fireEvent.change(starsField, { target: { value: "555" } });
     fireEvent.change(commentsField, { target: { value: "a".repeat(256) } });
@@ -78,8 +78,8 @@ describe("MenuItemReviewForm tests", () => {
 
     fireEvent.click(submitButton);
 
-    await screen.findByText(/Item Id must correspond to a valid menu item./);
-    expect(screen.getByText(/Item Id must correspond to a valid menu item./)).toBeInTheDocument();
+    await screen.findByText(/Item Id is required./);
+    expect(screen.getByText(/Item Id is required./)).toBeInTheDocument();
     expect(screen.getByText(/Reviewer Email is required./)).toBeInTheDocument();
     expect(screen.getByText(/Stars is required./)).toBeInTheDocument();
     expect(screen.getByText(/Comments is required./)).toBeInTheDocument();
