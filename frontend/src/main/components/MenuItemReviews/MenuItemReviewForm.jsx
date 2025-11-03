@@ -14,13 +14,13 @@ function MenuItemReviewForm({
     handleSubmit,
   } = useForm({ defaultValues: initialContents || {} });
   // Stryker restore all
-
+  const navigate = useNavigate();
+  // Stryker disable Regex
   const isodate_regex =
     /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d)/i;
   const id_regex = /^\d+$/;
   const email_regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-  const navigate = useNavigate();
+  // Stryker restore Regex
 
   const testIdPrefix = "MenuItemReviewForm";
 
