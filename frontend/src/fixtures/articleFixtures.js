@@ -36,8 +36,4 @@ const articleFixtures = {
   ],
 };
 
-<<<<<<< HEAD:frontend/src/fixtures/articlesFixtures.js
-export { articlesFixtures };
-=======
 export { articleFixtures };
->>>>>>> main:frontend/src/fixtures/articleFixtures.js

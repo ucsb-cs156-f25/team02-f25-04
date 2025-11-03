@@ -14,7 +14,7 @@ function UCSBDiningCommonsMenuItemForm({
   } = useForm({ defaultValues: initialContents || {} });
 
   const navigate = useNavigate();
-// For explanation, see: https://stackoverflow.com/questions/3143070/javascript-regex-iso-datetime
+  // For explanation, see: https://stackoverflow.com/questions/3143070/javascript-regex-iso-datetime
   // Note that even this complex regex may still need some tweaks
 
   // Stryker disable Regex
@@ -22,7 +22,6 @@ function UCSBDiningCommonsMenuItemForm({
 
   // Stryker disable next-line all
 
-  
   return (
     <Form onSubmit={handleSubmit(submitAction)}>
       <Row>
@@ -46,7 +45,9 @@ function UCSBDiningCommonsMenuItemForm({
       <Row>
         <Col>
           <Form.Group className="mb-3">
-            <Form.Label htmlFor="diningCommonsCode">Dining Commons Code</Form.Label>
+            <Form.Label htmlFor="diningCommonsCode">
+              Dining Commons Code
+            </Form.Label>
             <Form.Control
               data-testid="UCSBDiningCommonsMenuItemForm-diningCommonsCode"
               id="diningCommonsCode"
@@ -101,7 +102,10 @@ function UCSBDiningCommonsMenuItemForm({
 
       <Row>
         <Col>
-          <Button type="submit" data-testid="UCSBDiningCommonsMenuItemForm-submit">
+          <Button
+            type="submit"
+            data-testid="UCSBDiningCommonsMenuItemForm-submit"
+          >
             {buttonLabel}
           </Button>
           <Button
