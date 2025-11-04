@@ -19,8 +19,22 @@ vi.mock("react-router", async () => {
 describe("MenuItemReviewTable tests", () => {
   const queryClient = new QueryClient();
 
-  const expectedHeaders = ["id", "Item Id", "Reviewer Email", "Stars", "Comments", "Date Reviewed"];
-  const expectedFields = ["id", "itemId", "reviewerEmail", "stars", "comments", "dateReviewed"];
+  const expectedHeaders = [
+    "id",
+    "Item Id",
+    "Reviewer Email",
+    "Stars",
+    "Comments",
+    "Date Reviewed",
+  ];
+  const expectedFields = [
+    "id",
+    "itemId",
+    "reviewerEmail",
+    "stars",
+    "comments",
+    "dateReviewed",
+  ];
   const testId = "MenuItemReviewTable";
 
   test("renders empty table correctly", () => {
