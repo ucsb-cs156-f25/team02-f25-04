@@ -1,7 +1,7 @@
 import {
   onDeleteSuccess,
   cellToAxiosParamsDelete,
-} from "main/utils/RecommendationRequestUtils";
+} from "main/utils/recommendationRequestUtils";
 import mockConsole from "tests/testutils/mockConsole";
 
 const mockToast = vi.fn();
