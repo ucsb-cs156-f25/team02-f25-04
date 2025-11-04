@@ -14,11 +14,11 @@ export default function UCSBDiningCommonsMenuItemEditPage({ storybook = false })
     _status,
   } = useBackend(
     // Stryker disable next-line all : don't test internal caching of React Query
-    [`/api/ucsbmenuitem?id=${id}`],
+    [`/api/ucsbdiningcommonsmenuitem?id=${id}`],
     {
-      // Stryker disable next-line all : GET is default
+      // Stryker disable next-line all : GET is the default, so changing this to "" doesn't introduce a bug
       method: "GET",
-      url: `/api/ucsbmenuitem`,
+      url: `/api/ucsbdiningcommonsmenuitem`,
       params: {
         id,
       },
@@ -26,7 +26,7 @@ export default function UCSBDiningCommonsMenuItemEditPage({ storybook = false })
   );
 
   const objectToAxiosPutParams = (menuItem) => ({
-    url: "/api/ucsbmenuitem",
+    url: "/api/ucsbdiningcommonsmenuitem",
     method: "PUT",
     params: {
       id: menuItem.id,
@@ -39,14 +39,16 @@ export default function UCSBDiningCommonsMenuItemEditPage({ storybook = false })
   });
 
   const onSuccess = (menuItem) => {
-    toast(`UCSBDiningCommonsMenuItem Updated - id: ${menuItem.id} name: ${menuItem.name}`);
+    toast(
+      `UCSBDiningCommonsMenuItem Updated - id: ${menuItem.id} name: ${menuItem.name}`,
+    );
   };
 
   const mutation = useBackendMutation(
     objectToAxiosPutParams,
     { onSuccess },
-    // Stryker disable next-line all : hard to test caching
-    [`/api/ucsbmenuitem?id=${id}`],
+    // Stryker disable next-line all : hard to set up test for caching
+    [`/api/ucsbdiningcommonsmenuitem?id=${id}`],
   );
 
   const { isSuccess } = mutation;
@@ -56,7 +58,7 @@ export default function UCSBDiningCommonsMenuItemEditPage({ storybook = false })
   };
 
   if (isSuccess && !storybook) {
-    return <Navigate to="/diningcommonsmenuitem" />;
+    return <Navigate to="/ucsbdiningcommonsmenuitem" />;
   }
 
   return (

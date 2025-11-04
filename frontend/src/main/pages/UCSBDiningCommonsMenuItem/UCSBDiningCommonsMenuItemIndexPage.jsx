@@ -14,7 +14,7 @@ export default function UCSBDiningCommonsMenuItemIndexPage() {
       return (
         <Button
           variant="primary"
-          href="/diningcommonsmenuitem/create"
+          href="/ucsbdiningcommonsmenuitem/create"
           style={{ float: "right" }}
         >
           Create UCSBDiningCommonsMenuItem
@@ -29,8 +29,8 @@ export default function UCSBDiningCommonsMenuItemIndexPage() {
     status: _status,
   } = useBackend(
     // Stryker disable next-line all : don't test internal caching of React Query
-    ["/api/ucsbmenuitem/all"],
-    { method: "GET", url: "/api/ucsbmenuitem/all" },
+    ["/api/ucsbdiningcommonsmenuitem/all"],
+    { method: "GET", url: "/api/ucsbdiningcommonsmenuitem/all" },
     [],
   );
 

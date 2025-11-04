@@ -69,7 +69,7 @@ describe("UCSBDiningCommonsMenuItemCreatePage tests", () => {
       station: "Grill",
     };
 
-    axiosMock.onPost("/api/ucsbmenuitem/post").reply(202, menuItem);
+    axiosMock.onPost("/api/ucsbdiningcommonsmenuitem/post").reply(202, menuItem);
 
     render(
       <QueryClientProvider client={queryClient}>
@@ -116,6 +116,6 @@ describe("UCSBDiningCommonsMenuItemCreatePage tests", () => {
     expect(mockToast).toBeCalledWith(
       "New UCSBDiningCommonsMenuItem Created - id: 42 name: Chicken Tenders"
     );
-    expect(mockNavigate).toBeCalledWith({ to: "/diningcommonsmenuitem" });
+    expect(mockNavigate).toBeCalledWith({ to: "/ucsbdiningcommonsmenuitem" });
   });
 });
