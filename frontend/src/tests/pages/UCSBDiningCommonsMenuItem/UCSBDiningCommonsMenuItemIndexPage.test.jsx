@@ -56,12 +56,12 @@ describe("UCSBDiningCommonsMenuItemIndexPage tests", () => {
         <MemoryRouter>
           <UCSBDiningCommonsMenuItemIndexPage />
         </MemoryRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     await waitFor(() => {
       expect(
-        screen.getByText(/Create UCSBDiningCommonsMenuItem/)
+        screen.getByText(/Create UCSBDiningCommonsMenuItem/),
       ).toBeInTheDocument();
     });
 
@@ -82,24 +82,24 @@ describe("UCSBDiningCommonsMenuItemIndexPage tests", () => {
         <MemoryRouter>
           <UCSBDiningCommonsMenuItemIndexPage />
         </MemoryRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     await waitFor(() => {
       expect(
-        screen.getByTestId(`${testId}-cell-row-0-col-id`)
+        screen.getByTestId(`${testId}-cell-row-0-col-id`),
       ).toHaveTextContent("1");
     });
-    expect(
-      screen.getByTestId(`${testId}-cell-row-1-col-id`)
-    ).toHaveTextContent("2");
-    expect(
-      screen.getByTestId(`${testId}-cell-row-2-col-id`)
-    ).toHaveTextContent("3");
+    expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
+      "2",
+    );
+    expect(screen.getByTestId(`${testId}-cell-row-2-col-id`)).toHaveTextContent(
+      "3",
+    );
 
     // No create button for user-only
     expect(
-      screen.queryByText(/Create UCSBDiningCommonsMenuItem/)
+      screen.queryByText(/Create UCSBDiningCommonsMenuItem/),
     ).not.toBeInTheDocument();
   });
 
@@ -114,7 +114,7 @@ describe("UCSBDiningCommonsMenuItemIndexPage tests", () => {
         <MemoryRouter>
           <UCSBDiningCommonsMenuItemIndexPage />
         </MemoryRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     await waitFor(() => {
@@ -123,12 +123,12 @@ describe("UCSBDiningCommonsMenuItemIndexPage tests", () => {
 
     const errorMessage = console.error.mock.calls[0][0];
     expect(errorMessage).toMatch(
-      "Error communicating with backend via GET on /api/ucsbdiningcommonsmenuitem/all"
+      "Error communicating with backend via GET on /api/ucsbdiningcommonsmenuitem/all",
     );
     restoreConsole();
 
     expect(
-      screen.queryByTestId(`${testId}-cell-row-0-col-id`)
+      screen.queryByTestId(`${testId}-cell-row-0-col-id`),
     ).not.toBeInTheDocument();
   });
 
@@ -147,21 +147,21 @@ describe("UCSBDiningCommonsMenuItemIndexPage tests", () => {
         <MemoryRouter>
           <UCSBDiningCommonsMenuItemIndexPage />
         </MemoryRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     await waitFor(() => {
       expect(
-        screen.getByTestId(`${testId}-cell-row-0-col-id`)
+        screen.getByTestId(`${testId}-cell-row-0-col-id`),
       ).toBeInTheDocument();
     });
 
-    expect(
-      screen.getByTestId(`${testId}-cell-row-0-col-id`)
-    ).toHaveTextContent("1");
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent(
+      "1",
+    );
 
     const deleteButton = screen.getByTestId(
-      `${testId}-cell-row-0-col-Delete-button`
+      `${testId}-cell-row-0-col-Delete-button`,
     );
     expect(deleteButton).toBeInTheDocument();
 
@@ -169,7 +169,7 @@ describe("UCSBDiningCommonsMenuItemIndexPage tests", () => {
 
     await waitFor(() => {
       expect(mockToast).toBeCalledWith(
-        "UCSBDiningCommonsMenuItem with id 1 was deleted"
+        "UCSBDiningCommonsMenuItem with id 1 was deleted",
       );
     });
   });

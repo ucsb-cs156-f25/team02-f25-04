@@ -5,7 +5,9 @@ import { Navigate } from "react-router";
 import { useBackend, useBackendMutation } from "main/utils/useBackend";
 import { toast } from "react-toastify";
 
-export default function UCSBDiningCommonsMenuItemEditPage({ storybook = false }) {
+export default function UCSBDiningCommonsMenuItemEditPage({
+  storybook = false,
+}) {
   let { id } = useParams();
 
   const {

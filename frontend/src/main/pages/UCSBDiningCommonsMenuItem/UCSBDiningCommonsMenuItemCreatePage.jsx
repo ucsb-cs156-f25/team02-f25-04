@@ -4,9 +4,11 @@ import { Navigate } from "react-router";
 import { useBackendMutation } from "main/utils/useBackend";
 import { toast } from "react-toastify";
 
-export default function UCSBDiningCommonsMenuItemCreatePage({ storybook = false }) {
+export default function UCSBDiningCommonsMenuItemCreatePage({
+  storybook = false,
+}) {
   const objectToAxiosParams = (menuItem) => ({
-    url: "/api/ucsbdiningcommonsmenuitem/post",  // ✅ fixed path
+    url: "/api/ucsbdiningcommonsmenuitem/post", // ✅ fixed path
     method: "POST",
     params: {
       diningCommonsCode: menuItem.diningCommonsCode,
@@ -16,14 +18,16 @@ export default function UCSBDiningCommonsMenuItemCreatePage({ storybook = false 
   });
 
   const onSuccess = (menuItem) => {
-    toast(`New UCSBDiningCommonsMenuItem Created - id: ${menuItem.id} name: ${menuItem.name}`);
+    toast(
+      `New UCSBDiningCommonsMenuItem Created - id: ${menuItem.id} name: ${menuItem.name}`,
+    );
   };
 
   const mutation = useBackendMutation(
     objectToAxiosParams,
     { onSuccess },
     // Stryker disable next-line all : hard to set up test for caching
-    ["/api/ucsbdiningcommonsmenuitem/all"],  // ✅ fixed path
+    ["/api/ucsbdiningcommonsmenuitem/all"], // ✅ fixed path
   );
 
   const { isSuccess } = mutation;
@@ -33,7 +37,7 @@ export default function UCSBDiningCommonsMenuItemCreatePage({ storybook = false 
   };
 
   if (isSuccess && !storybook) {
-    return <Navigate to="/ucsbdiningcommonsmenuitem" />;  // ✅ corrected route for redirect
+    return <Navigate to="/ucsbdiningcommonsmenuitem" />; // ✅ corrected route for redirect
   }
 
   return (

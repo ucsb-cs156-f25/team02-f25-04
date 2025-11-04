@@ -50,12 +50,12 @@ describe("UCSBDiningCommonsMenuItemCreatePage tests", () => {
         <MemoryRouter>
           <UCSBDiningCommonsMenuItemCreatePage />
         </MemoryRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     await waitFor(() => {
       expect(
-        screen.getByTestId("UCSBDiningCommonsMenuItemForm-diningCommonsCode")
+        screen.getByTestId("UCSBDiningCommonsMenuItemForm-diningCommonsCode"),
       ).toBeInTheDocument();
     });
   });
@@ -69,33 +69,33 @@ describe("UCSBDiningCommonsMenuItemCreatePage tests", () => {
       station: "Grill",
     };
 
-    axiosMock.onPost("/api/ucsbdiningcommonsmenuitem/post").reply(202, menuItem);
+    axiosMock
+      .onPost("/api/ucsbdiningcommonsmenuitem/post")
+      .reply(202, menuItem);
 
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
           <UCSBDiningCommonsMenuItemCreatePage />
         </MemoryRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     await waitFor(() => {
       expect(
-        screen.getByTestId("UCSBDiningCommonsMenuItemForm-diningCommonsCode")
+        screen.getByTestId("UCSBDiningCommonsMenuItemForm-diningCommonsCode"),
       ).toBeInTheDocument();
     });
 
     const diningCommonsCodeField = screen.getByTestId(
-      "UCSBDiningCommonsMenuItemForm-diningCommonsCode"
+      "UCSBDiningCommonsMenuItemForm-diningCommonsCode",
     );
-    const nameField = screen.getByTestId(
-      "UCSBDiningCommonsMenuItemForm-name"
-    );
+    const nameField = screen.getByTestId("UCSBDiningCommonsMenuItemForm-name");
     const stationField = screen.getByTestId(
-      "UCSBDiningCommonsMenuItemForm-station"
+      "UCSBDiningCommonsMenuItemForm-station",
     );
     const submitButton = screen.getByTestId(
-      "UCSBDiningCommonsMenuItemForm-submit"
+      "UCSBDiningCommonsMenuItemForm-submit",
     );
 
     fireEvent.change(diningCommonsCodeField, { target: { value: "DLG" } });
@@ -114,7 +114,7 @@ describe("UCSBDiningCommonsMenuItemCreatePage tests", () => {
     });
 
     expect(mockToast).toBeCalledWith(
-      "New UCSBDiningCommonsMenuItem Created - id: 42 name: Chicken Tenders"
+      "New UCSBDiningCommonsMenuItem Created - id: 42 name: Chicken Tenders",
     );
     expect(mockNavigate).toBeCalledWith({ to: "/ucsbdiningcommonsmenuitem" });
   });
