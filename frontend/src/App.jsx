@@ -14,6 +14,12 @@ import RestaurantEditPage from "main/pages/Restaurants/RestaurantEditPage";
 import UCSBDiningCommonsMenuItemIndexPage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemIndexPage";
 import UCSBDiningCommonsMenuItemCreatePage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemCreatePage";
 import UCSBDiningCommonsMenuItemEditPage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemEditPage";
+import MenuItemReviewsCreatePage from "main/pages/MenuItemReviews/MenuItemReviewsCreatePage";
+import MenuItemReviewsEditPage from "main/pages/MenuItemReviews/MenuItemReviewsEditPage";
+import MenuItemReviewsIndexPage from "main/pages/MenuItemReviews/MenuItemReviewsIndexPage";
+import HelpRequestIndexPage from "main/pages/HelpRequest/HelpRequestIndexPage";
+import HelpRequestCreatePage from "main/pages/HelpRequest/HelpRequestCreatePage";
+import HelpRequestEditPage from "main/pages/HelpRequest/HelpRequestEditPage";
 
 import PlaceholderIndexPage from "main/pages/Placeholder/PlaceholderIndexPage";
 import PlaceholderCreatePage from "main/pages/Placeholder/PlaceholderCreatePage";
@@ -82,6 +88,28 @@ function App() {
         </>
       )}
 
+          <Route exact path="/HelpRequest" element={<HelpRequestIndexPage />} />
+        </>
+      )}
+      {hasRole(currentUser, "ROLE_ADMIN") && (
+        <>
+          <Route
+            exact
+            path="/HelpRequest/edit/:id"
+            element={<HelpRequestEditPage />}
+          />
+          <Route
+            exact
+            path="/HelpRequest/create"
+            element={<HelpRequestCreatePage />}
+          />
+        </>
+      )}
+      {hasRole(currentUser, "ROLE_USER") && (
+        <>
+          <Route exact path="/menuitemreview" element={<MenuItemReviewsIndexPage />} />
+        </>
+      )}
       {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
           <Route
@@ -97,6 +125,16 @@ function App() {
         </>
       )}
 
+            path="/menuitemreview/edit/:id"
+            element={<MenuItemReviewsEditPage />}
+          />
+          <Route
+            exact
+            path="/menuitemreview/create"
+            element={<MenuItemReviewsCreatePage />}
+          />
+        </>
+      )}
       {hasRole(currentUser, "ROLE_USER") && (
         <>
           <Route exact path="/placeholder" element={<PlaceholderIndexPage />} />
