@@ -52,7 +52,7 @@ describe("RecommendationRequestTable tests", () => {
             currentUser={currentUser}
           />
         </MemoryRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     // assert
@@ -63,7 +63,7 @@ describe("RecommendationRequestTable tests", () => {
 
     expectedFields.forEach((field) => {
       const fieldElement = screen.queryByTestId(
-        `${testId}-cell-row-0-col-${field}`
+        `${testId}-cell-row-0-col-${field}`,
       );
       expect(fieldElement).not.toBeInTheDocument();
     });
@@ -84,7 +84,7 @@ describe("RecommendationRequestTable tests", () => {
             currentUser={currentUser}
           />
         </MemoryRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     // assert
@@ -99,27 +99,27 @@ describe("RecommendationRequestTable tests", () => {
     });
 
     expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent(
-      "2"
+      "2",
     );
     expect(
-      screen.getByTestId(`${testId}-cell-row-0-col-requesterEmail`)
+      screen.getByTestId(`${testId}-cell-row-0-col-requesterEmail`),
     ).toHaveTextContent("test2@ucsb.edu");
 
     expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
-      "3"
+      "3",
     );
     expect(
-      screen.getByTestId(`${testId}-cell-row-1-col-explanation`)
+      screen.getByTestId(`${testId}-cell-row-1-col-explanation`),
     ).toHaveTextContent("i want more african food");
 
     const editButton = screen.getByTestId(
-      `${testId}-cell-row-0-col-Edit-button`
+      `${testId}-cell-row-0-col-Edit-button`,
     );
     expect(editButton).toBeInTheDocument();
     expect(editButton).toHaveClass("btn-primary");
 
     const deleteButton = screen.getByTestId(
-      `${testId}-cell-row-0-col-Delete-button`
+      `${testId}-cell-row-0-col-Delete-button`,
     );
     expect(deleteButton).toBeInTheDocument();
     expect(deleteButton).toHaveClass("btn-danger");
@@ -140,7 +140,7 @@ describe("RecommendationRequestTable tests", () => {
             currentUser={currentUser}
           />
         </MemoryRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     // assert
@@ -155,17 +155,17 @@ describe("RecommendationRequestTable tests", () => {
     });
 
     expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent(
-      "2"
+      "2",
     );
     expect(
-      screen.getByTestId(`${testId}-cell-row-0-col-requesterEmail`)
+      screen.getByTestId(`${testId}-cell-row-0-col-requesterEmail`),
     ).toHaveTextContent("test2@ucsb.edu");
 
     expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
-      "3"
+      "3",
     );
     expect(
-      screen.getByTestId(`${testId}-cell-row-1-col-explanation`)
+      screen.getByTestId(`${testId}-cell-row-1-col-explanation`),
     ).toHaveTextContent("i want more african food");
 
     expect(screen.queryByText("Delete")).not.toBeInTheDocument();
@@ -181,7 +181,9 @@ describe("RecommendationRequestTable tests", () => {
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
           <RecommendationRequestTable
-            recommendationRequests={recommendationRequestFixtures.threeRecommendationRequests}
+            recommendationRequests={
+              recommendationRequestFixtures.threeRecommendationRequests
+            }
             currentUser={currentUser}
           />
         </MemoryRouter>
@@ -206,7 +208,9 @@ describe("RecommendationRequestTable tests", () => {
 
     // assert - check that the navigate function was called with the expected path
     await waitFor(() =>
-      expect(mockedNavigate).toHaveBeenCalledWith("/recommendationRequests/edit/2"),
+      expect(mockedNavigate).toHaveBeenCalledWith(
+        "/recommendationRequests/edit/2",
+      ),
     );
   });
 
@@ -224,7 +228,9 @@ describe("RecommendationRequestTable tests", () => {
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
           <RecommendationRequestTable
-            recommendationRequests={recommendationRequestFixtures.threeRecommendationRequests}
+            recommendationRequests={
+              recommendationRequestFixtures.threeRecommendationRequests
+            }
             currentUser={currentUser}
           />
         </MemoryRouter>

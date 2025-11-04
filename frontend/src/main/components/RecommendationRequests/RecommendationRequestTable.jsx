@@ -25,7 +25,7 @@ export default function RecommendationRequestTable({
   const deleteMutation = useBackendMutation(
     cellToAxiosParamsDelete,
     { onSuccess: onDeleteSuccess },
-    ["/api/recommendationRequests/all"]
+    ["/api/recommendationRequests/all"],
   );
   // Stryker restore all
 
@@ -68,17 +68,21 @@ export default function RecommendationRequestTable({
     {
       header: "Done",
       accessorKey: "done",
-    }
+    },
   ];
 
   if (hasRole(currentUser, "ROLE_ADMIN")) {
     columns.push(ButtonColumn("Edit", "primary", editCallback, testIdPrefix));
     columns.push(
-      ButtonColumn("Delete", "danger", deleteCallback, testIdPrefix)
+      ButtonColumn("Delete", "danger", deleteCallback, testIdPrefix),
     );
   }
 
   return (
-    <OurTable data={recommendationRequests} columns={columns} testid={testIdPrefix} />
+    <OurTable
+      data={recommendationRequests}
+      columns={columns}
+      testid={testIdPrefix}
+    />
   );
 }
