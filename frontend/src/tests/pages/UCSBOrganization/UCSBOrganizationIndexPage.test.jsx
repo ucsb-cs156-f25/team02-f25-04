@@ -87,12 +87,12 @@ describe("UCSBOrganizationIndexPage tests", () => {
         screen.getByTestId(`${testId}-cell-row-0-col-orgCode`),
       ).toHaveTextContent("CYB");
     });
-    expect(screen.getByTestId(`${testId}-cell-row-1-col-orgCode`)).toHaveTextContent(
-      "PSY",
-    );
-    expect(screen.getByTestId(`${testId}-cell-row-2-col-orgCode`)).toHaveTextContent(
-      "CHE",
-    );
+    expect(
+      screen.getByTestId(`${testId}-cell-row-1-col-orgCode`),
+    ).toHaveTextContent("PSY");
+    expect(
+      screen.getByTestId(`${testId}-cell-row-2-col-orgCode`),
+    ).toHaveTextContent("CHE");
 
     const createButton = screen.queryByText("Create Organization");
     expect(createButton).not.toBeInTheDocument();
@@ -103,11 +103,15 @@ describe("UCSBOrganizationIndexPage tests", () => {
     const orgTranslation = screen.getByText("Cybersecurity-club");
     expect(orgTranslation).toBeInTheDocument();
 
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-inactive`)).toHaveTextContent("false");
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-inactive`),
+    ).toHaveTextContent("false");
 
     // for non-admin users, details button is visible, but the edit and delete buttons should not be visible
     expect(
-      screen.queryByTestId("UCSBOrganizationTable-cell-row-0-col-Delete-button"),
+      screen.queryByTestId(
+        "UCSBOrganizationTable-cell-row-0-col-Delete-button",
+      ),
     ).not.toBeInTheDocument();
     expect(
       screen.queryByTestId("UCSBOrganizationTable-cell-row-0-col-Edit-button"),
@@ -164,9 +168,9 @@ describe("UCSBOrganizationIndexPage tests", () => {
       ).toBeInTheDocument();
     });
 
-    expect(screen.getByTestId(`${testId}-cell-row-0-col-orgCode`)).toHaveTextContent(
-      "CYB",
-    );
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-orgCode`),
+    ).toHaveTextContent("CYB");
 
     const deleteButton = await screen.findByTestId(
       `${testId}-cell-row-0-col-Delete-button`,
@@ -176,7 +180,9 @@ describe("UCSBOrganizationIndexPage tests", () => {
     fireEvent.click(deleteButton);
 
     await waitFor(() => {
-      expect(mockToast).toHaveBeenCalledWith("UCSBOrganization with orgCode CYB was deleted");
+      expect(mockToast).toHaveBeenCalledWith(
+        "UCSBOrganization with orgCode CYB was deleted",
+      );
     });
 
     await waitFor(() => {

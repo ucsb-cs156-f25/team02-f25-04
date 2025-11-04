@@ -1,4 +1,3 @@
-
 import React from "react";
 import { useBackend } from "main/utils/useBackend";
 
@@ -41,7 +40,10 @@ export default function UCSBOrganizationIndexPage() {
       <div className="pt-2">
         {createButton()}
         <h1>Organizations</h1>
-        <UCSBOrganizationTable organizations={organizations} currentUser={currentUser} />
+        <UCSBOrganizationTable
+          organizations={organizations}
+          currentUser={currentUser}
+        />
       </div>
     </BasicLayout>
   );
