@@ -22,6 +22,7 @@ import MenuItemReviewsIndexPage from "main/pages/MenuItemReviews/MenuItemReviews
 import HelpRequestIndexPage from "main/pages/HelpRequest/HelpRequestIndexPage";
 import HelpRequestCreatePage from "main/pages/HelpRequest/HelpRequestCreatePage";
 import HelpRequestEditPage from "main/pages/HelpRequest/HelpRequestEditPage";
+
 import UCSBOrganizationIndexPage from "main/pages/UCSBOrganization/UCSBOrganizationIndexPage";
 import UCSBOrganizationCreatePage from "main/pages/UCSBOrganization/UCSBOrganizationCreatePage";
 import UCSBOrganizationEditPage from "main/pages/UCSBOrganization/UCSBOrganizationEditPage";
@@ -65,32 +66,6 @@ function App() {
 
       {hasRole(currentUser, "ROLE_USER") && (
         <Route exact path="/restaurants" element={<RestaurantIndexPage />} />
-        <>
-          <Route
-            exact
-            path="/ucsborganization"
-            element={<UCSBOrganizationIndexPage />}
-          />
-        </>
-      )}
-      {hasRole(currentUser, "ROLE_ADMIN") && (
-        <>
-          <Route
-            exact
-            path="/ucsborganization/edit/:orgCode"
-            element={<UCSBOrganizationEditPage />}
-          />
-          <Route
-            exact
-            path="/ucsborganization/create"
-            element={<UCSBOrganizationCreatePage />}
-          />
-        </>
-      )}
-      {hasRole(currentUser, "ROLE_USER") && (
-        <>
-          <Route exact path="/restaurants" element={<RestaurantIndexPage />} />
-        </>
       )}
       {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
@@ -103,6 +78,28 @@ function App() {
             exact
             path="/restaurants/create"
             element={<RestaurantCreatePage />}
+          />
+        </>
+      )}
+
+      {hasRole(currentUser, "ROLE_USER") && (
+        <Route
+          exact
+          path="/ucsborganization"
+          element={<UCSBOrganizationIndexPage />}
+        />
+      )}
+      {hasRole(currentUser, "ROLE_ADMIN") && (
+        <>
+          <Route
+            exact
+            path="/ucsborganization/edit/:orgCode"
+            element={<UCSBOrganizationEditPage />}
+          />
+          <Route
+            exact
+            path="/ucsborganization/create"
+            element={<UCSBOrganizationCreatePage />}
           />
         </>
       )}
@@ -148,13 +145,11 @@ function App() {
       )}
 
       {hasRole(currentUser, "ROLE_USER") && (
-        <>
-          <Route
-            exact
-            path="/menuitemreview"
-            element={<MenuItemReviewsIndexPage />}
-          />
-        </>
+        <Route
+          exact
+          path="/menuitemreview"
+          element={<MenuItemReviewsIndexPage />}
+        />
       )}
       {hasRole(currentUser, "ROLE_ADMIN") && (
         <>
