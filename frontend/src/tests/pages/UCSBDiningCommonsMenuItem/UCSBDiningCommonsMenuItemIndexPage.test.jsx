@@ -1,11 +1,11 @@
 import { fireEvent, render, waitFor, screen } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { MemoryRouter } from "react-router";
-import HelpRequestIndexPage from "main/pages/HelpRequest/HelpRequestIndexPage";
+import UCSBDiningCommonsMenuItemIndexPage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemIndexPage";
 
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
-import { helpRequestFixtures } from "fixtures/helpRequestFixtures";
+import { ucsbDiningCommonsMenuItemFixtures } from "fixtures/ucsbDiningCommonsMenuItemFixtures";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
 import mockConsole from "tests/testutils/mockConsole";
@@ -19,10 +19,10 @@ vi.mock("react-toastify", async (importOriginal) => {
   };
 });
 
-describe("HelpRequestIndexPage tests", () => {
+describe("UCSBDiningCommonsMenuItemIndexPage tests", () => {
   const axiosMock = new AxiosMockAdapter(axios);
 
-  const testId = "HelpRequestTable";
+  const testId = "UCSBDiningCommonsMenuItemTable";
 
   const setupUserOnly = () => {
     axiosMock.reset();
@@ -47,47 +47,44 @@ describe("HelpRequestIndexPage tests", () => {
   };
 
   test("Renders with Create Button for admin user", async () => {
-    // arrange
     setupAdminUser();
     const queryClient = new QueryClient();
-    axiosMock.onGet("/api/HelpRequest/all").reply(200, []);
+    axiosMock.onGet("/api/ucsbdiningcommonsmenuitem/all").reply(200, []);
 
-    // act
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <HelpRequestIndexPage />
+          <UCSBDiningCommonsMenuItemIndexPage />
         </MemoryRouter>
       </QueryClientProvider>,
     );
 
-    // assert
     await waitFor(() => {
-      expect(screen.getByText(/Create HelpRequest/)).toBeInTheDocument();
+      expect(
+        screen.getByText(/Create UCSBDiningCommonsMenuItem/),
+      ).toBeInTheDocument();
     });
-    const button = screen.getByText(/Create HelpRequest/);
-    expect(button).toHaveAttribute("href", "/HelpRequest/create");
+
+    const button = screen.getByText(/Create UCSBDiningCommonsMenuItem/);
+    expect(button).toHaveAttribute("href", "/ucsbdiningcommonsmenuitem/create");
     expect(button).toHaveAttribute("style", "float: right;");
   });
 
-  test("renders three dates correctly for regular user", async () => {
-    // arrange
+  test("renders three menu items correctly for regular user", async () => {
     setupUserOnly();
     const queryClient = new QueryClient();
     axiosMock
-      .onGet("/api/HelpRequest/all")
-      .reply(200, helpRequestFixtures.threeHelpRequests);
+      .onGet("/api/ucsbdiningcommonsmenuitem/all")
+      .reply(200, ucsbDiningCommonsMenuItemFixtures.threeItems);
 
-    // act
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <HelpRequestIndexPage />
+          <UCSBDiningCommonsMenuItemIndexPage />
         </MemoryRouter>
       </QueryClientProvider>,
     );
 
-    // assert
     await waitFor(() => {
       expect(
         screen.getByTestId(`${testId}-cell-row-0-col-id`),
@@ -100,34 +97,33 @@ describe("HelpRequestIndexPage tests", () => {
       "3",
     );
 
-    // assert that the Create button is not present when user isn't an admin
-    expect(screen.queryByText(/Create HelpRequest/)).not.toBeInTheDocument();
+    // No create button for user-only
+    expect(
+      screen.queryByText(/Create UCSBDiningCommonsMenuItem/),
+    ).not.toBeInTheDocument();
   });
 
   test("renders empty table when backend unavailable, user only", async () => {
-    // arrange
     setupUserOnly();
     const queryClient = new QueryClient();
-    axiosMock.onGet("/api/HelpRequest/all").timeout();
+    axiosMock.onGet("/api/ucsbdiningcommonsmenuitem/all").timeout();
     const restoreConsole = mockConsole();
 
-    // act
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <HelpRequestIndexPage />
+          <UCSBDiningCommonsMenuItemIndexPage />
         </MemoryRouter>
       </QueryClientProvider>,
     );
 
-    // assert
     await waitFor(() => {
       expect(axiosMock.history.get.length).toBeGreaterThanOrEqual(1);
     });
 
     const errorMessage = console.error.mock.calls[0][0];
     expect(errorMessage).toMatch(
-      "Error communicating with backend via GET on /api/HelpRequest/all",
+      "Error communicating with backend via GET on /api/ucsbdiningcommonsmenuitem/all",
     );
     restoreConsole();
 
@@ -137,26 +133,23 @@ describe("HelpRequestIndexPage tests", () => {
   });
 
   test("what happens when you click delete, admin", async () => {
-    // arrange
     setupAdminUser();
     const queryClient = new QueryClient();
     axiosMock
-      .onGet("/api/HelpRequest/all")
-      .reply(200, helpRequestFixtures.threeHelpRequests);
+      .onGet("/api/ucsbdiningcommonsmenuitem/all")
+      .reply(200, ucsbDiningCommonsMenuItemFixtures.threeItems);
     axiosMock
-      .onDelete("/api/HelpRequest")
-      .reply(200, "HelpRequest with id 1 was deleted");
+      .onDelete("/api/ucsbdiningcommonsmenuitem")
+      .reply(200, "UCSBDiningCommonsMenuItem with id 1 was deleted");
 
-    // act
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <HelpRequestIndexPage />
+          <UCSBDiningCommonsMenuItemIndexPage />
         </MemoryRouter>
       </QueryClientProvider>,
     );
 
-    // assert
     await waitFor(() => {
       expect(
         screen.getByTestId(`${testId}-cell-row-0-col-id`),
@@ -172,12 +165,12 @@ describe("HelpRequestIndexPage tests", () => {
     );
     expect(deleteButton).toBeInTheDocument();
 
-    // act
     fireEvent.click(deleteButton);
 
-    // assert
     await waitFor(() => {
-      expect(mockToast).toBeCalledWith("HelpRequest with id 1 was deleted");
+      expect(mockToast).toBeCalledWith(
+        "UCSBDiningCommonsMenuItem with id 1 was deleted",
+      );
     });
   });
 });
