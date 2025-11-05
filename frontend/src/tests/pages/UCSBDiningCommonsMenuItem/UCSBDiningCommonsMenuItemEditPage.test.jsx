@@ -1,7 +1,7 @@
 import { fireEvent, render, waitFor, screen } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { MemoryRouter } from "react-router";
-import ArticlesEditPage from "main/pages/Articles/ArticlesEditPage";
+import UCSBDiningCommonsMenuItemEditPage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemEditPage";
 
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
@@ -36,7 +36,7 @@ vi.mock("react-router", async (importOriginal) => {
 });
 
 let axiosMock;
-describe("ArticlesEditPage tests", () => {
+describe("UCSBDiningCommonsMenuItemEditPage tests", () => {
   describe("when the backend doesn't return data", () => {
     beforeEach(() => {
       axiosMock = new AxiosMockAdapter(axios);
@@ -46,7 +46,9 @@ describe("ArticlesEditPage tests", () => {
       axiosMock
         .onGet("/api/systemInfo")
         .reply(200, systemInfoFixtures.showingNeither);
-      axiosMock.onGet("/api/articles", { params: { id: 17 } }).timeout();
+      axiosMock
+        .onGet("/api/ucsbdiningcommonsmenuitem", { params: { id: 17 } })
+        .timeout();
     });
 
     afterEach(() => {
@@ -57,20 +59,22 @@ describe("ArticlesEditPage tests", () => {
     });
 
     const queryClient = new QueryClient();
-    test("renders header but table is not present", async () => {
+    test("renders header but form is not present", async () => {
       const restoreConsole = mockConsole();
 
       render(
         <QueryClientProvider client={queryClient}>
           <MemoryRouter>
-            <ArticlesEditPage />
+            <UCSBDiningCommonsMenuItemEditPage />
           </MemoryRouter>
         </QueryClientProvider>,
       );
 
       await screen.findByText(/Welcome/);
-      await screen.findByText("Edit Article");
-      expect(screen.queryByTestId("ArticleForm-title")).not.toBeInTheDocument();
+      await screen.findByText("Edit UCSBDiningCommonsMenuItem");
+      expect(
+        screen.queryByTestId("UCSBDiningCommonsMenuItemForm-diningCommonsCode"),
+      ).not.toBeInTheDocument();
       restoreConsole();
     });
   });
@@ -86,21 +90,19 @@ describe("ArticlesEditPage tests", () => {
       axiosMock
         .onGet("/api/systemInfo")
         .reply(200, systemInfoFixtures.showingNeither);
-      axiosMock.onGet("/api/articles", { params: { id: 17 } }).reply(200, {
-        id: 17,
-        title: "create",
-        url: "create.com",
-        explanation: "create",
-        email: "test@create.com",
-        dateAdded: "2022-02-02T00:00",
-      });
-      axiosMock.onPut("/api/articles").reply(200, {
-        id: 17,
-        title: "create2",
-        url: "create2.com",
-        explanation: "create2",
-        email: "test@create2.com",
-        dateAdded: "2021-02-02T00:00",
+      axiosMock
+        .onGet("/api/ucsbdiningcommonsmenuitem", { params: { id: 17 } })
+        .reply(200, {
+          id: 17,
+          diningCommonsCode: "DLG",
+          name: "Pancakes",
+          station: "Breakfast",
+        });
+      axiosMock.onPut("/api/ucsbdiningcommonsmenuitem").reply(200, {
+        id: "17",
+        diningCommonsCode: "DLG",
+        name: "Blueberry Pancakes",
+        station: "Griddle",
       });
     });
 
@@ -116,40 +118,50 @@ describe("ArticlesEditPage tests", () => {
       render(
         <QueryClientProvider client={queryClient}>
           <MemoryRouter>
-            <ArticlesEditPage />
+            <UCSBDiningCommonsMenuItemEditPage />
           </MemoryRouter>
         </QueryClientProvider>,
       );
       await screen.findByText(/Welcome/);
-      await screen.findByTestId("ArticleForm-title");
-      expect(screen.getByTestId("ArticleForm-title")).toBeInTheDocument();
+      await screen.findByTestId(
+        "UCSBDiningCommonsMenuItemForm-diningCommonsCode",
+      );
+      expect(
+        screen.getByTestId("UCSBDiningCommonsMenuItemForm-diningCommonsCode"),
+      ).toBeInTheDocument();
     });
 
     test("Is populated with the data provided", async () => {
       render(
         <QueryClientProvider client={queryClient}>
           <MemoryRouter>
-            <ArticlesEditPage />
+            <UCSBDiningCommonsMenuItemEditPage />
           </MemoryRouter>
         </QueryClientProvider>,
       );
 
-      await screen.findByTestId("ArticleForm-title");
+      await screen.findByTestId(
+        "UCSBDiningCommonsMenuItemForm-diningCommonsCode",
+      );
 
-      const idField = screen.getByTestId("ArticleForm-id");
-      const titleField = screen.getByTestId("ArticleForm-title");
-      const urlField = screen.getByTestId("ArticleForm-url");
-      const explanationField = screen.getByTestId("ArticleForm-explanation");
-      const emailField = screen.getByTestId("ArticleForm-email");
-      const dateAddedField = screen.getByTestId("ArticleForm-dateAdded");
-      const submitButton = screen.getByTestId("ArticleForm-submit");
+      const idField = screen.getByTestId("UCSBDiningCommonsMenuItemForm-id");
+      const codeField = screen.getByTestId(
+        "UCSBDiningCommonsMenuItemForm-diningCommonsCode",
+      );
+      const nameField = screen.getByTestId(
+        "UCSBDiningCommonsMenuItemForm-name",
+      );
+      const stationField = screen.getByTestId(
+        "UCSBDiningCommonsMenuItemForm-station",
+      );
+      const submitButton = screen.getByTestId(
+        "UCSBDiningCommonsMenuItemForm-submit",
+      );
 
       expect(idField).toHaveValue("17");
-      expect(titleField).toHaveValue("create");
-      expect(urlField).toHaveValue("create.com");
-      expect(explanationField).toHaveValue("create");
-      expect(emailField).toHaveValue("test@create.com");
-      expect(dateAddedField).toHaveValue("2022-02-02T00:00");
+      expect(codeField).toHaveValue("DLG");
+      expect(nameField).toHaveValue("Pancakes");
+      expect(stationField).toHaveValue("Breakfast");
       expect(submitButton).toBeInTheDocument();
     });
 
@@ -157,54 +169,54 @@ describe("ArticlesEditPage tests", () => {
       render(
         <QueryClientProvider client={queryClient}>
           <MemoryRouter>
-            <ArticlesEditPage />
+            <UCSBDiningCommonsMenuItemEditPage />
           </MemoryRouter>
         </QueryClientProvider>,
       );
 
-      await screen.findByTestId("ArticleForm-title");
+      await screen.findByTestId(
+        "UCSBDiningCommonsMenuItemForm-diningCommonsCode",
+      );
 
-      const idField = screen.getByTestId("ArticleForm-id");
-      const titleField = screen.getByTestId("ArticleForm-title");
-      const urlField = screen.getByTestId("ArticleForm-url");
-      const explanationField = screen.getByTestId("ArticleForm-explanation");
-      const emailField = screen.getByTestId("ArticleForm-email");
-      const dateAddedField = screen.getByTestId("ArticleForm-dateAdded");
-      const submitButton = screen.getByTestId("ArticleForm-submit");
+      const idField = screen.getByTestId("UCSBDiningCommonsMenuItemForm-id");
+      const codeField = screen.getByTestId(
+        "UCSBDiningCommonsMenuItemForm-diningCommonsCode",
+      );
+      const nameField = screen.getByTestId(
+        "UCSBDiningCommonsMenuItemForm-name",
+      );
+      const stationField = screen.getByTestId(
+        "UCSBDiningCommonsMenuItemForm-station",
+      );
+      const submitButton = screen.getByTestId(
+        "UCSBDiningCommonsMenuItemForm-submit",
+      );
 
       expect(idField).toHaveValue("17");
-      expect(titleField).toHaveValue("create");
-      expect(urlField).toHaveValue("create.com");
-      expect(explanationField).toHaveValue("create");
-      expect(emailField).toHaveValue("test@create.com");
-      expect(dateAddedField).toHaveValue("2022-02-02T00:00");
+      expect(codeField).toHaveValue("DLG");
+      expect(nameField).toHaveValue("Pancakes");
+      expect(stationField).toHaveValue("Breakfast");
+
       expect(submitButton).toBeInTheDocument();
 
-      fireEvent.change(titleField, { target: { value: "create2" } });
-      fireEvent.change(urlField, { target: { value: "create2.com" } });
-      fireEvent.change(explanationField, { target: { value: "create2" } });
-      fireEvent.change(emailField, { target: { value: "test@create2.com" } });
-      fireEvent.change(dateAddedField, {
-        target: { value: "2021-02-02T00:00" },
-      });
+      fireEvent.change(nameField, { target: { value: "Blueberry Pancakes" } });
+      fireEvent.change(stationField, { target: { value: "Griddle" } });
 
       fireEvent.click(submitButton);
 
       await waitFor(() => expect(mockToast).toBeCalled());
       expect(mockToast).toBeCalledWith(
-        "Article Updated - id: 17 title: create2",
+        "UCSBDiningCommonsMenuItem Updated - id: 17 name: Blueberry Pancakes",
       );
-      expect(mockNavigate).toBeCalledWith({ to: "/articles" });
+      expect(mockNavigate).toBeCalledWith({ to: "/ucsbdiningcommonsmenuitem" });
 
       expect(axiosMock.history.put.length).toBe(1); // times called
       expect(axiosMock.history.put[0].params).toEqual({ id: 17 });
       expect(axiosMock.history.put[0].data).toBe(
         JSON.stringify({
-          title: "create2",
-          url: "create2.com",
-          explanation: "create2",
-          email: "test@create2.com",
-          dateAdded: "2021-02-02T00:00",
+          diningCommonsCode: "DLG",
+          name: "Blueberry Pancakes",
+          station: "Griddle",
         }),
       ); // posted object
     });

@@ -1,5 +1,5 @@
 import { render, waitFor, fireEvent, screen } from "@testing-library/react";
-import ArticlesCreatePage from "main/pages/Articles/ArticlesCreatePage";
+import UCSBDiningCommonsMenuItemCreatePage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemCreatePage";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { MemoryRouter } from "react-router";
 
@@ -29,7 +29,7 @@ vi.mock("react-router", async (importOriginal) => {
   };
 });
 
-describe("ArticlesCreatePage tests", () => {
+describe("UCSBDiningCommonsMenuItemCreatePage tests", () => {
   const axiosMock = new AxiosMockAdapter(axios);
 
   beforeEach(() => {
@@ -48,73 +48,74 @@ describe("ArticlesCreatePage tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <ArticlesCreatePage />
+          <UCSBDiningCommonsMenuItemCreatePage />
         </MemoryRouter>
       </QueryClientProvider>,
     );
 
     await waitFor(() => {
-      expect(screen.getByTestId("ArticleForm-title")).toBeInTheDocument();
+      expect(
+        screen.getByTestId("UCSBDiningCommonsMenuItemForm-diningCommonsCode"),
+      ).toBeInTheDocument();
     });
   });
 
   test("when you fill in the form and hit submit, it makes a request to the backend", async () => {
     const queryClient = new QueryClient();
-    const article = {
-      id: 17,
-      title: "create",
-      url: "create.com",
-      explanation: "create",
-      email: "test@create.com",
-      dateAdded: "2022-02-02T00:00",
+    const menuItem = {
+      id: 42,
+      diningCommonsCode: "DLG",
+      name: "Chicken Tenders",
+      station: "Grill",
     };
 
-    axiosMock.onPost("/api/articles/post").reply(202, article);
+    axiosMock
+      .onPost("/api/ucsbdiningcommonsmenuitem/post")
+      .reply(202, menuItem);
 
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <ArticlesCreatePage />
+          <UCSBDiningCommonsMenuItemCreatePage />
         </MemoryRouter>
       </QueryClientProvider>,
     );
 
     await waitFor(() => {
-      expect(screen.getByTestId("ArticleForm-title")).toBeInTheDocument();
+      expect(
+        screen.getByTestId("UCSBDiningCommonsMenuItemForm-diningCommonsCode"),
+      ).toBeInTheDocument();
     });
 
-    const titleField = screen.getByTestId("ArticleForm-title");
-    const urlField = screen.getByTestId("ArticleForm-url");
-    const explanationField = screen.getByTestId("ArticleForm-explanation");
-    const emailField = screen.getByTestId("ArticleForm-email");
-    const dateAddedField = screen.getByTestId("ArticleForm-dateAdded");
-    const submitButton = screen.getByTestId("ArticleForm-submit");
+    const diningCommonsCodeField = screen.getByTestId(
+      "UCSBDiningCommonsMenuItemForm-diningCommonsCode",
+    );
+    const nameField = screen.getByTestId("UCSBDiningCommonsMenuItemForm-name");
+    const stationField = screen.getByTestId(
+      "UCSBDiningCommonsMenuItemForm-station",
+    );
+    const submitButton = screen.getByTestId(
+      "UCSBDiningCommonsMenuItemForm-submit",
+    );
 
-    fireEvent.change(titleField, { target: { value: "create" } });
-    fireEvent.change(urlField, { target: { value: "create.com" } });
-    fireEvent.change(explanationField, { target: { value: "create" } });
-    fireEvent.change(emailField, { target: { value: "test@create.com" } });
-    fireEvent.change(dateAddedField, {
-      target: { value: "2022-02-02T00:00" },
-    });
+    fireEvent.change(diningCommonsCodeField, { target: { value: "DLG" } });
+    fireEvent.change(nameField, { target: { value: "Chicken Tenders" } });
+    fireEvent.change(stationField, { target: { value: "Grill" } });
 
     expect(submitButton).toBeInTheDocument();
-
     fireEvent.click(submitButton);
 
     await waitFor(() => expect(axiosMock.history.post.length).toBe(1));
 
     expect(axiosMock.history.post[0].params).toEqual({
-      title: "create",
-      url: "create.com",
-      explanation: "create",
-      email: "test@create.com",
-      dateAdded: "2022-02-02T00:00",
+      diningCommonsCode: "DLG",
+      name: "Chicken Tenders",
+      station: "Grill",
     });
 
     expect(mockToast).toBeCalledWith(
-      "New article Created - id: 17 title: create",
+      "New UCSBDiningCommonsMenuItem Created - id: 42 name: Chicken Tenders",
     );
-    expect(mockNavigate).toBeCalledWith({ to: "/articles" });
+    expect(mockNavigate).toBeCalledWith({ to: "/ucsbdiningcommonsmenuitem" });
   });
 });
