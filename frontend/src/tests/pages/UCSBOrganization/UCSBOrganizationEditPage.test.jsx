@@ -65,7 +65,7 @@ describe("UCSBOrganizationEditPage tests", () => {
       render(
         <QueryClientProvider client={queryClient}>
           <MemoryRouter>
-            <RestaurantEditPage />
+            <UCSBOrganizationEditPage />
           </MemoryRouter>
         </QueryClientProvider>,
       );
