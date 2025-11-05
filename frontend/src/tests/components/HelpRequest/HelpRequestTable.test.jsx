@@ -76,7 +76,7 @@ describe("UserTable tests", () => {
     ).toHaveTextContent("01");
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-requestTime`),
-    ).toHaveTextContent("2025-10-31T12:00:00");
+    ).toHaveTextContent("2025-10-31T12:00");
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-explanation`),
     ).toHaveTextContent("Need help with git:sync on dokku.");
@@ -98,7 +98,7 @@ describe("UserTable tests", () => {
     ).toHaveTextContent("08");
     expect(
       screen.getByTestId(`${testId}-cell-row-1-col-requestTime`),
-    ).toHaveTextContent("2025-11-01T20:00:00");
+    ).toHaveTextContent("2025-11-01T20:00");
     expect(
       screen.getByTestId(`${testId}-cell-row-1-col-explanation`),
     ).toHaveTextContent("Cant login with Google account on localhost.");
@@ -155,7 +155,7 @@ describe("UserTable tests", () => {
     ).toHaveTextContent("01");
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-requestTime`),
-    ).toHaveTextContent("2025-10-31T12:00:00");
+    ).toHaveTextContent("2025-10-31T12:00");
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-explanation`),
     ).toHaveTextContent("Need help with git:sync on dokku.");
@@ -177,7 +177,7 @@ describe("UserTable tests", () => {
     ).toHaveTextContent("08");
     expect(
       screen.getByTestId(`${testId}-cell-row-1-col-requestTime`),
-    ).toHaveTextContent("2025-11-01T20:00:00");
+    ).toHaveTextContent("2025-11-01T20:00");
     expect(
       screen.getByTestId(`${testId}-cell-row-1-col-explanation`),
     ).toHaveTextContent("Cant login with Google account on localhost.");
@@ -268,7 +268,7 @@ describe("UserTable tests", () => {
       ).toHaveTextContent("01");
       expect(
         screen.getByTestId(`${testId}-cell-row-0-col-requestTime`),
-      ).toHaveTextContent("2025-10-31T12:00:00");
+      ).toHaveTextContent("2025-10-31T12:00");
       expect(
         screen.getByTestId(`${testId}-cell-row-0-col-explanation`),
       ).toHaveTextContent("Need help with git:sync on dokku.");
