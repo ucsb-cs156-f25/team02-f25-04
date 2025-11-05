@@ -5,7 +5,6 @@ import UCSBOrganizationEditPage from "main/pages/UCSBOrganization/UCSBOrganizati
 
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
-import { restaurantFixtures } from "fixtures/restaurantFixtures";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
 import mockConsole from "tests/testutils/mockConsole";
@@ -113,8 +112,6 @@ describe("UCSBOrganizationEditPage tests", () => {
     const queryClient = new QueryClient();
 
     test.only("Is populated with the data provided", async () => {
-
-
       render(
         <QueryClientProvider client={queryClient}>
           <MemoryRouter>
