@@ -5,7 +5,7 @@ import RecommendationRequestsIndexPage from "main/pages/RecommendationRequests/R
 
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
-import { recommendationRequestFixtures, recommendationRequestFixtures } from "fixtures/recommendationRequestFixtures";
+import { recommendationRequestFixtures } from "fixtures/recommendationRequestFixtures";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
 import mockConsole from "tests/testutils/mockConsole";
@@ -63,7 +63,9 @@ describe("RecommendationRequestsIndexPage tests", () => {
 
     // assert
     await waitFor(() => {
-      expect(screen.getByText(/Create RecommendationRequest/)).toBeInTheDocument();
+      expect(
+        screen.getByText(/Create RecommendationRequest/),
+      ).toBeInTheDocument();
     });
     const button = screen.getByText(/Create RecommendationRequest/);
     expect(button).toHaveAttribute("href", "/recommendationrequests/create");
@@ -101,7 +103,9 @@ describe("RecommendationRequestsIndexPage tests", () => {
     );
 
     // assert that the Create button is not present when user isn't an admin
-    expect(screen.queryByText(/Create RecommendationRequest/)).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(/Create RecommendationRequest/),
+    ).not.toBeInTheDocument();
   });
 
   test("renders empty table when backend unavailable, user only", async () => {
@@ -177,7 +181,9 @@ describe("RecommendationRequestsIndexPage tests", () => {
 
     // assert
     await waitFor(() => {
-      expect(mockToast).toBeCalledWith("RecommendationRequest with id 2 was deleted");
+      expect(mockToast).toBeCalledWith(
+        "RecommendationRequest with id 2 was deleted",
+      );
     });
   });
 });

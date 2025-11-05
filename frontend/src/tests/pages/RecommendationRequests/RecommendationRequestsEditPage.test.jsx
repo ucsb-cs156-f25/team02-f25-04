@@ -46,7 +46,9 @@ describe("RecommendationRequestsEditPage tests", () => {
       axiosMock
         .onGet("/api/systemInfo")
         .reply(200, systemInfoFixtures.showingNeither);
-      axiosMock.onGet("/api/recommendationrequests", { params: { id: 17 } }).timeout();
+      axiosMock
+        .onGet("/api/recommendationrequests", { params: { id: 17 } })
+        .timeout();
     });
 
     afterEach(() => {
@@ -88,15 +90,17 @@ describe("RecommendationRequestsEditPage tests", () => {
       axiosMock
         .onGet("/api/systemInfo")
         .reply(200, systemInfoFixtures.showingNeither);
-      axiosMock.onGet("/api/recommendationrequests", { params: { id: 17 } }).reply(200, {
-        id: 17,
-        requesterEmail: "test1@ucsb.edu",
-        professorEmail: "prof1@ucsb.edu",
-        explanation: "i want more mexican food",
-        dateRequested: "2022-01-03T00:10:01",
-        dateNeeded: "2022-01-03T00:10:01",
-        done: true,
-      });
+      axiosMock
+        .onGet("/api/recommendationrequests", { params: { id: 17 } })
+        .reply(200, {
+          id: 17,
+          requesterEmail: "test1@ucsb.edu",
+          professorEmail: "prof1@ucsb.edu",
+          explanation: "i want more mexican food",
+          dateRequested: "2022-01-03T00:10:01",
+          dateNeeded: "2022-01-03T00:10:01",
+          done: true,
+        });
       axiosMock.onPut("/api/recommendationrequests").reply(200, {
         id: 17,
         requesterEmail: "test1@ucsb.edu",
@@ -152,7 +156,6 @@ describe("RecommendationRequestsEditPage tests", () => {
       const dateNeededField = screen.getByLabelText("Date Needed (iso format)");
       const doneField = screen.getByLabelText("Done");
       const submitButton = screen.getByText("Update");
-
 
       expect(idField).toHaveValue("17");
       expect(requesterEmailField).toHaveValue("test1@ucsb.edu");
