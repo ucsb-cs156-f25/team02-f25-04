@@ -62,6 +62,7 @@ function UCSBOrganizationForm({
       <Form.Group className="mb-3">
         <Form.Label htmlFor="orgTranslation">OrgTranslation</Form.Label>
         <Form.Control
+          data-testid={testIdPrefix + "-orgTranslation"}
           id="orgTranslation"
           type="text"
           isInvalid={Boolean(errors.orgTranslation)}
@@ -77,6 +78,7 @@ function UCSBOrganizationForm({
       <Form.Group className="mb-3">
         <Form.Label htmlFor="inactive">Inactive</Form.Label>
         <Form.Control
+          data-testid={testIdPrefix + "-inactive"}
           id="inactive"
           type="switch"
           isInvalid={Boolean(errors.inactive)}
