@@ -8,7 +8,6 @@ import { toast } from "react-toastify";
 export default function UCSBOrganizationEditPage({ storybook = false }) {
   let { orgCode } = useParams();
 
-  // Fetch existing organization by orgCode
   const {
     data: organization,
     _error,
@@ -17,6 +16,7 @@ export default function UCSBOrganizationEditPage({ storybook = false }) {
     // Stryker disable next-line all : don't test internal caching of React Query
     [`/api/ucsborganization?orgCode=${orgCode}`],
     {
+      // Stryker disable next-line all : GET is the default, so mutating this to "" doesn't introduce a bug
       method: "GET",
       url: '/api/ucsborganization',
       params: { orgCode },
