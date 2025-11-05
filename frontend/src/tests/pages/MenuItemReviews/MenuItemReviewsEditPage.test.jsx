@@ -68,7 +68,9 @@ describe("MenuItemReviewsEditPage tests", () => {
         </QueryClientProvider>,
       );
       await screen.findByText("Edit Menu Item Review");
-      expect(screen.queryByTestId("MenuItemReviewForm-itemId")).not.toBeInTheDocument();
+      expect(
+        screen.queryByTestId("MenuItemReviewForm-itemId"),
+      ).not.toBeInTheDocument();
       restoreConsole();
     });
   });
@@ -84,14 +86,16 @@ describe("MenuItemReviewsEditPage tests", () => {
       axiosMock
         .onGet("/api/systemInfo")
         .reply(200, systemInfoFixtures.showingNeither);
-      axiosMock.onGet("/api/menuitemreview", { params: { id: 17 } }).reply(200, {
-        id: 17,
-        itemId: 30,
-        reviewerEmail: "rhung@ucsb.edu",
-        stars: 5,
-        dateReviewed: "2025-10-27T12:00:00",
-        comments: "very delicious",
-      });
+      axiosMock
+        .onGet("/api/menuitemreview", { params: { id: 17 } })
+        .reply(200, {
+          id: 17,
+          itemId: 30,
+          reviewerEmail: "rhung@ucsb.edu",
+          stars: 5,
+          dateReviewed: "2025-10-27T12:00:00",
+          comments: "very delicious",
+        });
       axiosMock.onPut("/api/menuitemreview").reply(200, {
         id: "17",
         itemId: 35,
@@ -124,9 +128,13 @@ describe("MenuItemReviewsEditPage tests", () => {
 
       const idField = screen.getByTestId("MenuItemReviewForm-id");
       const itemIdField = screen.getByTestId("MenuItemReviewForm-itemId");
-      const reviewerEmailField = screen.getByTestId("MenuItemReviewForm-reviewerEmail");
+      const reviewerEmailField = screen.getByTestId(
+        "MenuItemReviewForm-reviewerEmail",
+      );
       const starsField = screen.getByTestId("MenuItemReviewForm-stars");
-      const dateReviewedField = screen.getByTestId("MenuItemReviewForm-dateReviewed");
+      const dateReviewedField = screen.getByTestId(
+        "MenuItemReviewForm-dateReviewed",
+      );
       const commentsField = screen.getByTestId("MenuItemReviewForm-comments");
       const submitButton = screen.getByTestId("MenuItemReviewForm-submit");
 
@@ -146,10 +154,16 @@ describe("MenuItemReviewsEditPage tests", () => {
       expect(submitButton).toHaveTextContent("Update");
 
       fireEvent.change(itemIdField, { target: { value: 35 } });
-      fireEvent.change(reviewerEmailField, { target: { value: "rhung-new@ucsb.edu" } });
+      fireEvent.change(reviewerEmailField, {
+        target: { value: "rhung-new@ucsb.edu" },
+      });
       fireEvent.change(starsField, { target: { value: 1 } });
-      fireEvent.change(dateReviewedField, { target: { value: "2025-10-28T12:00" } });
-      fireEvent.change(commentsField, { target: { value: "not very delicious" } });
+      fireEvent.change(dateReviewedField, {
+        target: { value: "2025-10-28T12:00" },
+      });
+      fireEvent.change(commentsField, {
+        target: { value: "not very delicious" },
+      });
       fireEvent.click(submitButton);
 
       await waitFor(() => expect(mockToast).toBeCalled());
@@ -185,9 +199,13 @@ describe("MenuItemReviewsEditPage tests", () => {
 
       const idField = screen.getByTestId("MenuItemReviewForm-id");
       const itemIdField = screen.getByTestId("MenuItemReviewForm-itemId");
-      const reviewerEmailField = screen.getByTestId("MenuItemReviewForm-reviewerEmail");
+      const reviewerEmailField = screen.getByTestId(
+        "MenuItemReviewForm-reviewerEmail",
+      );
       const starsField = screen.getByTestId("MenuItemReviewForm-stars");
-      const dateReviewedField = screen.getByTestId("MenuItemReviewForm-dateReviewed");
+      const dateReviewedField = screen.getByTestId(
+        "MenuItemReviewForm-dateReviewed",
+      );
       const commentsField = screen.getByTestId("MenuItemReviewForm-comments");
       const submitButton = screen.getByTestId("MenuItemReviewForm-submit");
 

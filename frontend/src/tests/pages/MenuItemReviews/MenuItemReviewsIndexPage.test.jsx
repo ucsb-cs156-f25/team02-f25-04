@@ -94,7 +94,9 @@ describe("MenuItemReviewsIndexPage tests", () => {
       "3",
     );
 
-    const createMenuItemReviewButton = screen.queryByText("Create Menu Item Review");
+    const createMenuItemReviewButton = screen.queryByText(
+      "Create Menu Item Review",
+    );
     expect(createMenuItemReviewButton).not.toBeInTheDocument();
 
     const reviewerEmail = screen.getByText("rhung@ucsb.edu");
