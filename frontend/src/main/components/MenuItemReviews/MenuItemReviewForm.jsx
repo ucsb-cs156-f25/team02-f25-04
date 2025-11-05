@@ -44,13 +44,13 @@ function MenuItemReviewForm({
         )}
         <Col>
           <Form.Group className="mb-3">
-            <Form.Label htmlFor="item_id">Item Id</Form.Label>
+            <Form.Label htmlFor="itemId">Item Id</Form.Label>
             <Form.Control
-              data-testid={testIdPrefix + "-item_id"}
-              id="item_id"
+              data-testid={testIdPrefix + "-itemId"}
+              id="itemId"
               type="text"
-              isInvalid={Boolean(errors.item_id)}
-              {...register("item_id", {
+              isInvalid={Boolean(errors.itemId)}
+              {...register("itemId", {
                 required: "Item Id is required.",
                 pattern: {
                   value: id_regex,
@@ -59,19 +59,19 @@ function MenuItemReviewForm({
               })}
             />
             <Form.Control.Feedback type="invalid">
-              {errors.item_id?.message}
+              {errors.itemId?.message}
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
         <Col>
           <Form.Group className="mb-3">
-            <Form.Label htmlFor="reviewer_email">Reviewer Email</Form.Label>
+            <Form.Label htmlFor="reviewerEmail">Reviewer Email</Form.Label>
             <Form.Control
-              data-testid={testIdPrefix + "-reviewer_email"}
-              id="reviewer_email"
+              data-testid={testIdPrefix + "-reviewerEmail"}
+              id="reviewerEmail"
               type="text"
-              isInvalid={Boolean(errors.reviewer_email)}
-              {...register("reviewer_email", {
+              isInvalid={Boolean(errors.reviewerEmail)}
+              {...register("reviewerEmail", {
                 required: "Reviewer Email is required.",
                 pattern: {
                   value: email_regex,
@@ -80,7 +80,7 @@ function MenuItemReviewForm({
               })}
             />
             <Form.Control.Feedback type="invalid">
-              {errors.reviewer_email?.message}
+              {errors.reviewerEmail?.message}
             </Form.Control.Feedback>
           </Form.Group>
         </Col>

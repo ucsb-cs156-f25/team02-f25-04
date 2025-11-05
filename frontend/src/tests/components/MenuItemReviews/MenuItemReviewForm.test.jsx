@@ -46,10 +46,10 @@ describe("MenuItemReviewForm tests", () => {
         <MenuItemReviewForm />
       </Router>,
     );
-    await screen.findByTestId("MenuItemReviewForm-item_id");
-    const itemIdField = screen.getByTestId("MenuItemReviewForm-item_id");
+    await screen.findByTestId("MenuItemReviewForm-itemId");
+    const itemIdField = screen.getByTestId("MenuItemReviewForm-itemId");
     const reviewerEmailField = screen.getByTestId(
-      "MenuItemReviewForm-reviewer_email",
+      "MenuItemReviewForm-reviewerEmail",
     );
     const starsField = screen.getByTestId("MenuItemReviewForm-stars");
     const commentsField = screen.getByTestId("MenuItemReviewForm-comments");
@@ -142,11 +142,11 @@ describe("MenuItemReviewForm tests", () => {
         <MenuItemReviewForm submitAction={mockSubmitAction} />
       </Router>,
     );
-    await screen.findByTestId("MenuItemReviewForm-item_id");
+    await screen.findByTestId("MenuItemReviewForm-itemId");
 
-    const itemIdField = screen.getByTestId("MenuItemReviewForm-item_id");
+    const itemIdField = screen.getByTestId("MenuItemReviewForm-itemId");
     const reviewerEmailField = screen.getByTestId(
-      "MenuItemReviewForm-reviewer_email",
+      "MenuItemReviewForm-reviewerEmail",
     );
     const starsField = screen.getByTestId("MenuItemReviewForm-stars");
     const commentsField = screen.getByTestId("MenuItemReviewForm-comments");
