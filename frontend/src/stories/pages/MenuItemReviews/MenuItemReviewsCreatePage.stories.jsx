@@ -3,16 +3,15 @@ import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 import { http, HttpResponse } from "msw";
 
-import UCSBOrganizationCreatePage from "main/pages/UCSBOrganization/UCSBOrganizationCreatePage";
-
-import { ucsbOrganizationFixtures } from "fixtures/ucsbOrganizationFixtures";
+import MenuItemReviewsCreatePage from "main/pages/MenuItemReviews/MenuItemReviewsCreatePage";
+import { menuItemReviewFixtures } from "fixtures/menuItemReviewFixtures";
 
 export default {
-  title: "pages/UCSBOrganization/UCSBOrganizationCreatePage",
-  component: UCSBOrganizationCreatePage,
+  title: "pages/MenuItemReviews/MenuItemReviewsCreatePage",
+  component: MenuItemReviewsCreatePage,
 };
 
-const Template = () => <UCSBOrganizationCreatePage storybook={true} />;
+const Template = () => <MenuItemReviewsCreatePage storybook={true} />;
 
 export const Default = Template.bind({});
 Default.parameters = {
@@ -27,12 +26,8 @@ Default.parameters = {
         status: 200,
       });
     }),
-    http.post("/api/ucsborganization/post", () => {
-      return HttpResponse.json(
-        ucsbOrganizationFixtures.oneOrganization,
-        {},
-        { status: 200 },
-      );
+    http.post("/api/menuitemreview/post", () => {
+      return HttpResponse.json(menuItemReviewFixtures.oneMenuItemReview, { status: 200 });
     }),
   ],
 };

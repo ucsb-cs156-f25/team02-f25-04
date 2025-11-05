@@ -3,16 +3,16 @@ import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 import { http, HttpResponse } from "msw";
 
-import UCSBOrganizationCreatePage from "main/pages/UCSBOrganization/UCSBOrganizationCreatePage";
+import RecommendationRequestsCreatePage from "main/pages/RecommendationRequests/RecommendationRequestsCreatePage";
 
-import { ucsbOrganizationFixtures } from "fixtures/ucsbOrganizationFixtures";
+import { recommendationRequestFixtures } from "fixtures/recommendationRequestFixtures";
 
 export default {
-  title: "pages/UCSBOrganization/UCSBOrganizationCreatePage",
-  component: UCSBOrganizationCreatePage,
+  title: "pages/RecommendationRequests/RecommendationRequestsCreatePage",
+  component: RecommendationRequestsCreatePage,
 };
 
-const Template = () => <UCSBOrganizationCreatePage storybook={true} />;
+const Template = () => <RecommendationRequestsCreatePage storybook={true} />;
 
 export const Default = Template.bind({});
 Default.parameters = {
@@ -27,10 +27,9 @@ Default.parameters = {
         status: 200,
       });
     }),
-    http.post("/api/ucsborganization/post", () => {
+    http.post("/api/recommendationrequests/post", () => {
       return HttpResponse.json(
-        ucsbOrganizationFixtures.oneOrganization,
-        {},
+        recommendationRequestFixtures.oneRecommendationRequest,
         { status: 200 },
       );
     }),

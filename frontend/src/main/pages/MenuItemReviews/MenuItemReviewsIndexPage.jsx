@@ -2,21 +2,21 @@ import React from "react";
 import { useBackend } from "main/utils/useBackend";
 
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
-import UCSBOrganizationTable from "main/components/UCSBOrganization/UCSBOrganizationTable";
+import MenuItemReviewTable from "main/components/MenuItemReviews/MenuItemReviewTable";
 import { useCurrentUser, hasRole } from "main/utils/useCurrentUser";
 import { Button } from "react-bootstrap";
 
-export default function UCSBOrganizationIndexPage() {
+export default function MenuItemReviewsIndexPage() {
   const currentUser = useCurrentUser();
 
   const {
-    data: organizations,
+    data: menuItemReviews,
     error: _error,
     status: _status,
   } = useBackend(
     // Stryker disable next-line all : don't test internal caching of React Query
-    ["/api/ucsborganization/all"],
-    { method: "GET", url: "/api/ucsborganization/all" },
+    ["/api/menuitemreview/all"],
+    { method: "GET", url: "/api/menuitemreview/all" },
     // Stryker disable next-line all : don't test default value of empty list
     [],
   );
@@ -26,10 +26,10 @@ export default function UCSBOrganizationIndexPage() {
       return (
         <Button
           variant="primary"
-          href="/ucsborganization/create"
+          href="/menuitemreview/create"
           style={{ float: "right" }}
         >
-          Create Organization
+          Create Menu Item Review
         </Button>
       );
     }
@@ -39,11 +39,8 @@ export default function UCSBOrganizationIndexPage() {
     <BasicLayout>
       <div className="pt-2">
         {createButton()}
-        <h1>Organizations</h1>
-        <UCSBOrganizationTable
-          organizations={organizations}
-          currentUser={currentUser}
-        />
+        <h1>Menu Item Reviews</h1>
+        <MenuItemReviewTable menuItemReviews={menuItemReviews} currentUser={currentUser} />
       </div>
     </BasicLayout>
   );

@@ -1,9 +1,9 @@
 import { render, screen, waitFor, fireEvent } from "@testing-library/react";
-import UCSBOrganizationIndexPage from "main/pages/UCSBOrganization/UCSBOrganizationIndexPage";
+import MenuItemReviewsIndexPage from "main/pages/MenuItemReviews/MenuItemReviewsIndexPage";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { MemoryRouter } from "react-router";
 import mockConsole from "tests/testutils/mockConsole";
-import { ucsbOrganizationFixtures } from "fixtures/ucsbOrganizationFixtures";
+import { menuItemReviewFixtures } from "fixtures/menuItemReviewFixtures";
 
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
@@ -19,10 +19,10 @@ vi.mock("react-toastify", async (importOriginal) => {
   };
 });
 
-describe("UCSBOrganizationIndexPage tests", () => {
+describe("MenuItemReviewsIndexPage tests", () => {
   const axiosMock = new AxiosMockAdapter(axios);
 
-  const testId = "UCSBOrganizationTable";
+  const testId = "MenuItemReviewTable";
 
   const setupUserOnly = () => {
     axiosMock.reset();
@@ -50,85 +50,79 @@ describe("UCSBOrganizationIndexPage tests", () => {
 
   test("Renders with Create Button for admin user", async () => {
     setupAdminUser();
-    axiosMock.onGet("/api/ucsborganization/all").reply(200, []);
+    axiosMock.onGet("/api/menuitemreview/all").reply(200, []);
 
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <UCSBOrganizationIndexPage />
+          <MenuItemReviewsIndexPage />
         </MemoryRouter>
       </QueryClientProvider>,
     );
 
     await waitFor(() => {
-      expect(screen.getByText(/Create Organization/)).toBeInTheDocument();
+      expect(screen.getByText(/Create Menu Item Review/)).toBeInTheDocument();
     });
-    const button = screen.getByText(/Create Organization/);
-    expect(button).toHaveAttribute("href", "/ucsborganization/create");
+    const button = screen.getByText(/Create Menu Item Review/);
+    expect(button).toHaveAttribute("href", "/menuitemreview/create");
     expect(button).toHaveAttribute("style", "float: right;");
   });
 
-  test("renders three organizations correctly for regular user", async () => {
+  test("renders three menu item reviews correctly for regular user", async () => {
     setupUserOnly();
     axiosMock
-      .onGet("/api/ucsborganization/all")
-      .reply(200, ucsbOrganizationFixtures.threeOrganizations);
+      .onGet("/api/menuitemreview/all")
+      .reply(200, menuItemReviewFixtures.threeMenuItemReviews);
 
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <UCSBOrganizationIndexPage />
+          <MenuItemReviewsIndexPage />
         </MemoryRouter>
       </QueryClientProvider>,
     );
 
     await waitFor(() => {
       expect(
-        screen.getByTestId(`${testId}-cell-row-0-col-orgCode`),
-      ).toHaveTextContent("CYB");
+        screen.getByTestId(`${testId}-cell-row-0-col-id`),
+      ).toHaveTextContent("1");
     });
-    expect(
-      screen.getByTestId(`${testId}-cell-row-1-col-orgCode`),
-    ).toHaveTextContent("PSY");
-    expect(
-      screen.getByTestId(`${testId}-cell-row-2-col-orgCode`),
-    ).toHaveTextContent("CHE");
+    expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
+      "2",
+    );
+    expect(screen.getByTestId(`${testId}-cell-row-2-col-id`)).toHaveTextContent(
+      "3",
+    );
 
-    const createButton = screen.queryByText("Create Organization");
-    expect(createButton).not.toBeInTheDocument();
+    const createMenuItemReviewButton = screen.queryByText("Create Menu Item Review");
+    expect(createMenuItemReviewButton).not.toBeInTheDocument();
 
-    const orgTranslationShort = screen.getByText("Cybersecurity");
-    expect(orgTranslationShort).toBeInTheDocument();
+    const reviewerEmail = screen.getByText("rhung@ucsb.edu");
+    expect(reviewerEmail).toBeInTheDocument();
 
-    const orgTranslation = screen.getByText("Cybersecurity-club");
-    expect(orgTranslation).toBeInTheDocument();
-
-    expect(
-      screen.getByTestId(`${testId}-cell-row-0-col-inactive`),
-    ).toHaveTextContent("false");
+    const comments = screen.getByText("very delicious");
+    expect(comments).toBeInTheDocument();
 
     // for non-admin users, details button is visible, but the edit and delete buttons should not be visible
     expect(
-      screen.queryByTestId(
-        "UCSBOrganizationTable-cell-row-0-col-Delete-button",
-      ),
+      screen.queryByTestId("MenuItemReviewTable-cell-row-0-col-Delete-button"),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByTestId("UCSBOrganizationTable-cell-row-0-col-Edit-button"),
+      screen.queryByTestId("MenuItemReviewTable-cell-row-0-col-Edit-button"),
     ).not.toBeInTheDocument();
   });
 
   test("renders empty table when backend unavailable, user only", async () => {
     setupUserOnly();
 
-    axiosMock.onGet("/api/ucsborganization/all").timeout();
+    axiosMock.onGet("/api/menuitemreview/all").timeout();
 
     const restoreConsole = mockConsole();
 
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <UCSBOrganizationIndexPage />
+          <MenuItemReviewsIndexPage />
         </MemoryRouter>
       </QueryClientProvider>,
     );
@@ -139,7 +133,7 @@ describe("UCSBOrganizationIndexPage tests", () => {
 
     const errorMessage = console.error.mock.calls[0][0];
     expect(errorMessage).toMatch(
-      "Error communicating with backend via GET on /api/ucsborganization/all",
+      "Error communicating with backend via GET on /api/menuitemreview/all",
     );
     restoreConsole();
   });
@@ -148,29 +142,29 @@ describe("UCSBOrganizationIndexPage tests", () => {
     setupAdminUser();
 
     axiosMock
-      .onGet("/api/ucsborganization/all")
-      .reply(200, ucsbOrganizationFixtures.threeOrganizations);
+      .onGet("/api/menuitemreview/all")
+      .reply(200, menuItemReviewFixtures.threeMenuItemReviews);
     axiosMock
-      .onDelete("/api/ucsborganization")
-      .reply(200, "UCSBOrganization with orgCode CYB was deleted");
+      .onDelete("/api/menuitemreview")
+      .reply(200, "MenuItemReview with id 1 was deleted");
 
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <UCSBOrganizationIndexPage />
+          <MenuItemReviewsIndexPage />
         </MemoryRouter>
       </QueryClientProvider>,
     );
 
     await waitFor(() => {
       expect(
-        screen.getByTestId(`${testId}-cell-row-0-col-orgCode`),
+        screen.getByTestId(`${testId}-cell-row-0-col-id`),
       ).toBeInTheDocument();
     });
 
-    expect(
-      screen.getByTestId(`${testId}-cell-row-0-col-orgCode`),
-    ).toHaveTextContent("CYB");
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent(
+      "1",
+    );
 
     const deleteButton = await screen.findByTestId(
       `${testId}-cell-row-0-col-Delete-button`,
@@ -180,15 +174,14 @@ describe("UCSBOrganizationIndexPage tests", () => {
     fireEvent.click(deleteButton);
 
     await waitFor(() => {
-      expect(mockToast).toHaveBeenCalledWith(
-        "UCSBOrganization with orgCode CYB was deleted",
-      );
+      expect(mockToast).toBeCalledWith("MenuItemReview with id 1 was deleted");
     });
 
     await waitFor(() => {
       expect(axiosMock.history.delete.length).toBe(1);
     });
-    expect(axiosMock.history.delete[0].url).toBe("/api/ucsborganization");
-    expect(axiosMock.history.delete[0].params).toEqual({ orgCode: "CYB" });
+    expect(axiosMock.history.delete[0].url).toBe("/api/menuitemreview");
+    expect(axiosMock.history.delete[0].url).toBe("/api/menuitemreview");
+    expect(axiosMock.history.delete[0].params).toEqual({ id: 1 });
   });
 });

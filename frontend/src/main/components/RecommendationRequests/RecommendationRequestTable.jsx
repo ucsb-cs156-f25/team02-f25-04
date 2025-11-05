@@ -5,18 +5,19 @@ import { useBackendMutation } from "main/utils/useBackend";
 import {
   cellToAxiosParamsDelete,
   onDeleteSuccess,
-} from "main/utils/UCSBDiningCommonsMenuItemUtils";
+} from "main/utils/recommendationRequestUtils";
 import { useNavigate } from "react-router";
 import { hasRole } from "main/utils/useCurrentUser";
 
-export default function UCSBDiningCommonsMenuItemTable({
-  menuItems,
+export default function RecommendationRequestTable({
+  recommendationRequests,
   currentUser,
+  testIdPrefix = "RecommendationRequestTable",
 }) {
   const navigate = useNavigate();
 
   const editCallback = (cell) => {
-    navigate(`/ucsbdiningcommonsmenuitem/edit/${cell.row.original.id}`);
+    navigate(`/recommendationRequests/edit/${cell.row.original.id}`);
   };
 
   // Stryker disable all : hard to test for query caching
@@ -24,7 +25,7 @@ export default function UCSBDiningCommonsMenuItemTable({
   const deleteMutation = useBackendMutation(
     cellToAxiosParamsDelete,
     { onSuccess: onDeleteSuccess },
-    ["/api/ucsbdiningcommonsmenuitem/all"],
+    ["/api/recommendationrequests/all"],
   );
   // Stryker restore all
 
@@ -35,47 +36,53 @@ export default function UCSBDiningCommonsMenuItemTable({
 
   const columns = [
     {
-      header: "ID",
+      header: "id",
       accessorKey: "id", // accessor is the "key" in the data
     },
+
     {
-      header: "Dining Commons Code",
-      accessorKey: "diningCommonsCode",
+      header: "Requester Email",
+      accessorKey: "requesterEmail",
     },
+
     {
-      header: "Name",
-      accessorKey: "name",
+      header: "Professor Email",
+      accessorKey: "professorEmail",
     },
+
     {
-      header: "Station",
-      accessorKey: "station",
+      header: "Explanation",
+      accessorKey: "explanation",
+    },
+
+    {
+      header: "Date Requested",
+      accessorKey: "dateRequested",
+    },
+
+    {
+      header: "Date Needed",
+      accessorKey: "dateNeeded",
+    },
+
+    {
+      header: "Done",
+      accessorKey: "done",
     },
   ];
 
   if (hasRole(currentUser, "ROLE_ADMIN")) {
+    columns.push(ButtonColumn("Edit", "primary", editCallback, testIdPrefix));
     columns.push(
-      ButtonColumn(
-        "Edit",
-        "primary",
-        editCallback,
-        "UCSBDiningCommonsMenuItemTable",
-      ),
-    );
-    columns.push(
-      ButtonColumn(
-        "Delete",
-        "danger",
-        deleteCallback,
-        "UCSBDiningCommonsMenuItemTable",
-      ),
+      ButtonColumn("Delete", "danger", deleteCallback, testIdPrefix),
     );
   }
 
   return (
     <OurTable
-      data={menuItems}
+      data={recommendationRequests}
       columns={columns}
-      testid={"UCSBDiningCommonsMenuItemTable"}
+      testid={testIdPrefix}
     />
   );
 }
