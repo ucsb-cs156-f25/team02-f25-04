@@ -28,7 +28,11 @@ Default.parameters = {
       });
     }),
     http.post("/api/ucsborganization/post", () => {
-      return HttpResponse.json(ucsbOrganizationFixtures.oneOrganization, {}, { status: 200 });
+      return HttpResponse.json(
+        ucsbOrganizationFixtures.oneOrganization,
+        {},
+        { status: 200 },
+      );
     }),
   ],
 };

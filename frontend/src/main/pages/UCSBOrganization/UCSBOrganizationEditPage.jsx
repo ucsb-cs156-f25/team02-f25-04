@@ -18,14 +18,14 @@ export default function UCSBOrganizationEditPage({ storybook = false }) {
     {
       // Stryker disable next-line all : GET is the default, so mutating this to "" doesn't introduce a bug
       method: "GET",
-      url: '/api/ucsborganization',
+      url: "/api/ucsborganization",
       params: { orgCode },
-    }
+    },
   );
 
   // Convert form data to PUT request
   const objectToAxiosPutParams = (organization) => ({
-    url: '/api/ucsborganization',
+    url: "/api/ucsborganization",
     method: "PUT",
     params: { orgCode: organization.orgCode },
     data: {
@@ -38,7 +38,7 @@ export default function UCSBOrganizationEditPage({ storybook = false }) {
   // Toast success message
   const onSuccess = (organization) => {
     toast(
-      `UCSB Organization Updated - orgCode: ${organization.orgCode} orgTranslationShort: ${organization.orgTranslationShort}`
+      `UCSB Organization Updated - orgCode: ${organization.orgCode} orgTranslationShort: ${organization.orgTranslationShort}`,
     );
   };
 
@@ -47,7 +47,7 @@ export default function UCSBOrganizationEditPage({ storybook = false }) {
     objectToAxiosPutParams,
     { onSuccess },
     // Stryker disable next-line all : hard to test caching
-    [`/api/ucsborganization?orgCode=${orgCode}`]
+    [`/api/ucsborganization?orgCode=${orgCode}`],
   );
 
   const { isSuccess } = mutation;
