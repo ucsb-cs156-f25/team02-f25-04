@@ -88,7 +88,10 @@ public class UCSBDiningCommonsMenuItemIT {
     MvcResult response =
         mockMvc
             .perform(
-                post("/api/ucsbdiningcommonsmenuitem/post?diningCommonsCode=DLG&name=Scrambled%20Eggs&station=Breakfast")
+                post("/api/ucsbdiningcommonsmenuitem/post")
+                    .param("diningCommonsCode", "DLG")
+                    .param("name", "Scrambled Eggs")
+                    .param("station", "Breakfast")
                     .with(csrf()))
             .andExpect(status().isOk())
             .andReturn();

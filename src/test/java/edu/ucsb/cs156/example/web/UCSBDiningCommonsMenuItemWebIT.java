@@ -16,11 +16,12 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ActiveProfiles("integration")
 @DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
 public class UCSBDiningCommonsMenuItemWebIT extends WebTestCase {
+
   @Test
   public void admin_user_can_create_edit_delete_UCSBDiningCommonsMenuItem() throws Exception {
     setupUser(true);
 
-    page.getByText("UCSBDiningCommonsMenuItems").click();
+    page.getByText("UCSB Dining Commons Menu Items").click();
 
     page.getByText("Create UCSBDiningCommonsMenuItem").click();
     assertThat(page.getByText("Create New UCSBDiningCommonsMenuItem")).isVisible();
@@ -51,7 +52,7 @@ public class UCSBDiningCommonsMenuItemWebIT extends WebTestCase {
   public void regular_user_cannot_create_UCSBDiningCommonsMenuItem() throws Exception {
     setupUser(false);
 
-    page.getByText("UCSBDiningCommonsMenuItems").click();
+    page.getByText("UCSB Dining Commons Menu Items").click();
 
     assertThat(page.getByText("Create UCSBDiningCommonsMenuItem")).not().isVisible();
     assertThat(page.getByTestId("UCSBDiningCommonsMenuItemTable-cell-row-0-col-name"))
