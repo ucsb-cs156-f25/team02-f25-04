@@ -69,7 +69,7 @@ describe("UCSBOrganizationEditPage tests", () => {
           </MemoryRouter>
         </QueryClientProvider>,
       );
-      await screen.findByText("Edit Organization");
+      await screen.findByText("Edit UCSB Organization");
       expect(screen.queryByTestId("Organization-name")).not.toBeInTheDocument();
       restoreConsole();
     });
@@ -111,7 +111,7 @@ describe("UCSBOrganizationEditPage tests", () => {
 
     const queryClient = new QueryClient();
 
-    test.only("Is populated with the data provided", async () => {
+    test("Is populated with the data provided", async () => {
       render(
         <QueryClientProvider client={queryClient}>
           <MemoryRouter>
