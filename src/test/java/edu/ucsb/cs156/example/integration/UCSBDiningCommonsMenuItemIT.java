@@ -6,8 +6,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.ucsb.cs156.example.entities.UCSBOrganization;
-import edu.ucsb.cs156.example.repositories.UCSBOrganizationRepository;
+import edu.ucsb.cs156.example.entities.UCSBDiningCommonsMenuItem;
+import edu.ucsb.cs156.example.repositories.UCSBDiningCommonsMenuItemRepository;
 import edu.ucsb.cs156.example.repositories.UserRepository;
 import edu.ucsb.cs156.example.services.CurrentUserService;
 import edu.ucsb.cs156.example.services.GrantedAuthoritiesService;
@@ -33,12 +33,12 @@ import org.springframework.test.web.servlet.MvcResult;
 @ActiveProfiles("integration")
 @Import(TestConfig.class)
 @DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
-public class UCSBOrganizationIT {
+public class UCSBDiningCommonsMenuItemIT {
   @Autowired public CurrentUserService currentUserService;
 
   @Autowired public GrantedAuthoritiesService grantedAuthoritiesService;
 
-  @Autowired UCSBOrganizationRepository ucsbOrganizationRepository;
+  @Autowired UCSBDiningCommonsMenuItemRepository ucsbDiningCommonsMenuItemRepository;
 
   @Autowired public MockMvc mockMvc;
 
@@ -50,54 +50,54 @@ public class UCSBOrganizationIT {
   @Test
   public void test_that_logged_in_user_can_get_by_id_when_the_id_exists() throws Exception {
     // arrange
-
-    UCSBOrganization organization1 =
-        UCSBOrganization.builder()
-            .orgCode("FIR")
-            .orgTranslationShort("first-organ")
-            .orgTranslation("first-organization")
-            .inactive(false)
+    UCSBDiningCommonsMenuItem item =
+        UCSBDiningCommonsMenuItem.builder()
+            .diningCommonsCode("DLG")
+            .name("Pancakes")
+            .station("Breakfast")
             .build();
 
-    ucsbOrganizationRepository.save(organization1);
+    ucsbDiningCommonsMenuItemRepository.save(item);
 
     // act
     MvcResult response =
         mockMvc
-            .perform(get("/api/ucsborganization?orgCode=FIR"))
+            .perform(get("/api/ucsbdiningcommonsmenuitem?id=1"))
             .andExpect(status().isOk())
             .andReturn();
 
     // assert
-    String expectedJson = mapper.writeValueAsString(organization1);
+    String expectedJson = mapper.writeValueAsString(item);
     String responseString = response.getResponse().getContentAsString();
     assertEquals(expectedJson, responseString);
   }
 
   @WithMockUser(roles = {"ADMIN", "USER"})
   @Test
-  public void an_admin_user_can_post_a_new_ucsborganization() throws Exception {
+  public void an_admin_user_can_post_a_new_menu_item() throws Exception {
     // arrange
-
-    UCSBOrganization organization1 =
-        UCSBOrganization.builder()
-            .orgCode("FIR")
-            .orgTranslationShort("first-organ")
-            .orgTranslation("first-organization")
-            .inactive(false)
+    UCSBDiningCommonsMenuItem item =
+        UCSBDiningCommonsMenuItem.builder()
+            .id(1L)
+            .diningCommonsCode("DLG")
+            .name("Scrambled Eggs")
+            .station("Breakfast")
             .build();
 
     // act
     MvcResult response =
         mockMvc
             .perform(
-                post("/api/ucsborganization/post?orgCode=FIR&orgTranslationShort=first-organ&orgTranslation=first-organization&inactive=false")
+                post("/api/ucsbdiningcommonsmenuitem/post")
+                    .param("diningCommonsCode", "DLG")
+                    .param("name", "Scrambled Eggs")
+                    .param("station", "Breakfast")
                     .with(csrf()))
             .andExpect(status().isOk())
             .andReturn();
 
     // assert
-    String expectedJson = mapper.writeValueAsString(organization1);
+    String expectedJson = mapper.writeValueAsString(item);
     String responseString = response.getResponse().getContentAsString();
     assertEquals(expectedJson, responseString);
   }
