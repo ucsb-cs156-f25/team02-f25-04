@@ -76,7 +76,7 @@ public class UCSBOrganizationIT {
 
   @WithMockUser(roles = {"ADMIN", "USER"})
   @Test
-  public void an_admin_user_can_post_a_new_restaurant() throws Exception {
+  public void an_admin_user_can_post_a_new_ucsborganization() throws Exception {
     // arrange
 
     UCSBOrganization organization1 =
