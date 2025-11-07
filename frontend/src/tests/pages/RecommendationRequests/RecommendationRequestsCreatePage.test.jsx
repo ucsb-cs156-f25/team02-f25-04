@@ -94,7 +94,7 @@ describe("RecommendationRequestsCreatePage tests", () => {
     );
     const dateNeededField = screen.getByLabelText("Date Needed (iso format)");
     const doneField = screen.getByLabelText("Done");
-    const submitButton = screen.getByText("Create");
+    const submitButton = screen.getByTestId("RecommendationRequestForm-submit");
 
     fireEvent.change(requesterEmailField, {
       target: { value: "test1@ucsb.edu" },
