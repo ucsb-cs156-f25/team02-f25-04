@@ -97,7 +97,7 @@ describe("UCSBOrganizationCreatePage tests", () => {
     const inactiveInput = screen.getByLabelText("Inactive");
     expect(inactiveInput).toBeInTheDocument();
 
-    const createButton = screen.getByText("Create");
+    const createButton = screen.getByTestId("UCSBOrganizationForm-submit");
     expect(createButton).toBeInTheDocument();
 
     fireEvent.change(orgCodeInput, { target: { value: "CYB" } });
