@@ -42,8 +42,7 @@ Default.parameters = {
       window.alert(
         "PUT: " + req.url + " and body: " + JSON.stringify(req.body, null, 2),
       );
-      return HttpResponse.json({
-      }, { status: 200 });
+      return HttpResponse.json({}, { status: 200 });
     }),
   ],
 };
